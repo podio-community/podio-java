@@ -12,7 +12,7 @@ import com.podio.common.Reference;
 import com.podio.common.ReferenceType;
 import com.podio.common.Right;
 
-public class StreamAPITest {
+public class StreamAPITestIT {
 
 	private StreamAPI getAPI() {
 		return APIFactoryProvider.getDefault().getAPI(StreamAPI.class);

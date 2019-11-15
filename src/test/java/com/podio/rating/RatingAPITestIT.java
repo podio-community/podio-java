@@ -7,7 +7,7 @@ import com.podio.APIFactoryProvider;
 import com.podio.common.Reference;
 import com.podio.common.ReferenceType;
 
-public class RatingAPITest {
+public class RatingAPITestIT {
 
 	private RatingAPI getAPI() {
 		return APIFactoryProvider.getDefault().getAPI(RatingAPI.class);

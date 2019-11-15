@@ -11,7 +11,7 @@ import com.podio.APIApplicationException;
 import com.podio.APIFactoryProvider;
 import com.sun.jersey.api.client.ClientResponse.Status;
 
-public class AppAPITest {
+public class AppAPITestIT {
 
 	private AppAPI getAPI() {
 		return APIFactoryProvider.getDefault().getAPI(AppAPI.class);

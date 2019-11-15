@@ -11,7 +11,7 @@ import org.junit.Test;
 import com.podio.APIFactoryProvider;
 import com.podio.common.ReferenceType;
 
-public class CalendarAPITest {
+public class CalendarAPITestIT {
 
 	private CalendarAPI getAPI() {
 		return APIFactoryProvider.getDefault().getAPI(CalendarAPI.class);

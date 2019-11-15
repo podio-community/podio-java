@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import com.podio.APIFactoryProvider;
 
-public class NotificationAPITest {
+public class NotificationAPITestIT {
 
 	private NotificationAPI getAPI() {
 		return APIFactoryProvider.getDefault().getAPI(NotificationAPI.class);

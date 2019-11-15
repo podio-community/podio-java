@@ -13,7 +13,7 @@ import com.podio.common.Role;
 import com.podio.space.Space;
 import com.podio.space.SpaceMini;
 
-public class OrgAPITest {
+public class OrgAPITestIT {
 
 	private OrgAPI getAPI() {
 		return APIFactoryProvider.getDefault().getAPI(OrgAPI.class);

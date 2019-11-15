@@ -11,7 +11,7 @@ import com.podio.APIFactoryProvider;
 import com.podio.common.Reference;
 import com.podio.common.ReferenceType;
 
-public class TagAPITest {
+public class TagAPITestIT {
 
 	private TagAPI getAPI() {
 		return APIFactoryProvider.getDefault().getAPI(TagAPI.class);

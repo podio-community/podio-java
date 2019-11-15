@@ -22,7 +22,7 @@ import com.podio.filter.PodioDateInterval;
 import com.podio.rating.RatingType;
 import com.podio.rating.RatingValue;
 
-public class ItemAPITest {
+public class ItemAPITestIT {
 
 	private ItemAPI getAPI() {
 		return APIFactoryProvider.getDefault().getAPI(ItemAPI.class);

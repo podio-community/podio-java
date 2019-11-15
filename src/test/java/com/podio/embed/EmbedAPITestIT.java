@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import com.podio.APIFactoryProvider;
 
-public class EmbedAPITest {
+public class EmbedAPITestIT {
 
 	private EmbedAPI getAPI() {
 		return APIFactoryProvider.getDefault().getAPI(EmbedAPI.class);

@@ -13,7 +13,7 @@ import com.podio.common.AvatarType;
 import com.podio.common.Reference;
 import com.podio.common.ReferenceType;
 
-public class CommentAPITest {
+public class CommentAPITestIT {
 
 	private CommentAPI getAPI() {
 		return APIFactoryProvider.getDefault().getAPI(CommentAPI.class);

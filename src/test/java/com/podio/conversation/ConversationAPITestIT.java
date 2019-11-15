@@ -12,7 +12,7 @@ import com.podio.APIFactoryProvider;
 import com.podio.common.Reference;
 import com.podio.common.ReferenceType;
 
-public class ConversationAPITest {
+public class ConversationAPITestIT {
 
 	private ConversationAPI getAPI() {
 		return APIFactoryProvider.getDefault().getAPI(ConversationAPI.class);

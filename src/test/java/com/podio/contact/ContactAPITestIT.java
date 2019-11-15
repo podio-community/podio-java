@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import com.podio.APIFactoryProvider;
 
-public class ContactAPITest {
+public class ContactAPITestIT {
 
 	private ContactAPI getAPI() {
 		return APIFactoryProvider.getDefault().getAPI(ContactAPI.class);

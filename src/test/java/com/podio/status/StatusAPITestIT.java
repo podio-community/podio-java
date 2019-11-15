@@ -10,7 +10,7 @@ import org.junit.Test;
 import com.podio.APIFactoryProvider;
 import com.podio.rating.RatingType;
 
-public class StatusAPITest {
+public class StatusAPITestIT {
 
 	private StatusAPI getAPI() {
 		return APIFactoryProvider.getDefault().getAPI(StatusAPI.class);

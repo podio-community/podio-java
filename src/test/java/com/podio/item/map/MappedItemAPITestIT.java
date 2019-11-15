@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import com.podio.APIFactoryProvider;
 
-public class MappedItemAPITest {
+public class MappedItemAPITestIT {
 
 	private <T> MappedItemAPI<T> getMappedAPI(Class<T> cls) {
 		return new MappedItemAPI<T>(APIFactoryProvider.getDefault(), 1, cls);

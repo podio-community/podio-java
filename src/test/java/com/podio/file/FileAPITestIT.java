@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import com.podio.APIFactoryProvider;
 
-public class FileAPITest {
+public class FileAPITestIT {
 
 	private FileAPI getAPI() {
 		return APIFactoryProvider.getDefault().getAPI(FileAPI.class);

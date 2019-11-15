@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import com.podio.APIFactoryProvider;
 
-public class DeviceAPITest {
+public class DeviceAPITestIT {
 
 	private DeviceAPI getAPI() {
 		return APIFactoryProvider.getDefault().getAPI(DeviceAPI.class);

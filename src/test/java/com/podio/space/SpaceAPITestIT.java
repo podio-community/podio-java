@@ -12,7 +12,7 @@ import com.podio.APIFactoryProvider;
 import com.podio.ResourceFactoryProvider;
 import com.podio.common.Role;
 
-public class SpaceAPITest {
+public class SpaceAPITestIT {
 
 	private SpaceAPI getAPI() {
 		return APIFactoryProvider.getDefault().getAPI(SpaceAPI.class);

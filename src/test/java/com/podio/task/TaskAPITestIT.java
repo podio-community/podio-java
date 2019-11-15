@@ -12,7 +12,7 @@ import com.podio.APIFactoryProvider;
 import com.podio.common.Reference;
 import com.podio.common.ReferenceType;
 
-public class TaskAPITest {
+public class TaskAPITestIT {
 
 	private TaskAPI getAPI() {
 		return APIFactoryProvider.getDefault().getAPI(TaskAPI.class);

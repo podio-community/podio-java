@@ -13,7 +13,7 @@ import com.podio.contact.ProfileField;
 import com.podio.contact.ProfileFieldValues;
 import com.podio.contact.ProfileUpdate;
 
-public class UserAPITest {
+public class UserAPITestIT {
 
 	private UserAPI getAPI() {
 		return APIFactoryProvider.getDefault().getAPI(UserAPI.class);

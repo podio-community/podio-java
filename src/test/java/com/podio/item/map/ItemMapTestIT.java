@@ -18,7 +18,7 @@ import com.podio.item.ItemAPI;
 import com.podio.item.ItemCreate;
 import com.podio.item.ItemUpdate;
 
-public class ItemMapTest {
+public class ItemMapTestIT {
 
 	@Test
 	public void mapTest1() {
