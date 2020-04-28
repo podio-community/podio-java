@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.podio.community</groupId>
-    <artifactId>podio-api</artifactId>
+    <groupId>com.github.podio-community</groupId>
+    <artifactId>podio-api-client</artifactId>
     <packaging>jar</packaging>
 
-    <name>api</name>
-    <version>0.7.12-SNAPSHOT</version>
+    <name>Podio API Client</name>
+    <version>0.8.0-SNAPSHOT</version>
     <description>Fork of the official Java wrapper for the Podio API</description>
     <url>http://podio.com</url>
 
