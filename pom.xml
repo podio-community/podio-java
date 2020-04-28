@@ -185,9 +185,7 @@
         <profile>
             <id>release-sign-artifacts</id>
             <activation>
-                <property>
-                    <name>gpg.passphrase</name>
-                </property>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <build>
                 <plugins>
