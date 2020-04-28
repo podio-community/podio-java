@@ -6,7 +6,7 @@
     <packaging>jar</packaging>
 
     <name>Podio API Client</name>
-    <version>1.0.0-beta.3</version>
+    <version>1.0.0-SNAPSHOT</version>
     <description>Fork of the official Java wrapper for the Podio API</description>
     <url>http://podio.com</url>
 
@@ -14,7 +14,7 @@
         <connection>scm:git:git://github.com:podio-community/podio-java.git</connection>
         <developerConnection>scm:git:git@github.com:podio-community/podio-java.git</developerConnection>
         <url>http://github.com:podio-community/podio-java.git</url>
-      <tag>podio-api-client-1.0.0-beta.3</tag>
+      <tag>HEAD</tag>
   </scm>
     <build>
         <plugins>
