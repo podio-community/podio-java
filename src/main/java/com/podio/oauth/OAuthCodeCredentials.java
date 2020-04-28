@@ -1,6 +1,6 @@
 package com.podio.oauth;
 
-import java.util.Map;
+import javax.ws.rs.core.MultivaluedMap;
 
 public class OAuthCodeCredentials implements OAuthUserCredentials {
 
@@ -23,8 +23,8 @@ public class OAuthCodeCredentials implements OAuthUserCredentials {
         return "authorization_code";
     }
 
-    public void addParameters(Map<String, String> map) {
-        map.put("code", code);
-        map.put("redirect_uri", redirectUri);
+    public void addParameters(MultivaluedMap<String, String> map) {
+        map.add("code", code);
+        map.add("redirect_uri", redirectUri);
     }
 }

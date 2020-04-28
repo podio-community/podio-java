@@ -5,11 +5,11 @@ import com.podio.ResourceFactory;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedHashMap;
+import javax.ws.rs.core.MultivaluedMap;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.HashMap;
-import java.util.Map;
 
 public class OAuthAPI extends BaseAPI {
 
@@ -19,14 +19,14 @@ public class OAuthAPI extends BaseAPI {
 
     public OAuthToken getToken(OAuthClientCredentials clientCredentials,
                                OAuthUserCredentials userCredentials) {
-        Map<String, String> parameters = new HashMap<>();
-        parameters.put("grant_type", userCredentials.getType());
+        MultivaluedMap<String, String> parameters = new MultivaluedHashMap<>();
+        parameters.add("grant_type", userCredentials.getType());
         userCredentials.addParameters(parameters);
 
         var resource = getResourceFactory().getApiResource(
                 "/oauth/token", false, new HashMap<String, String>());
         String cred = clientCredentials.getClientId() + ":" + clientCredentials.getClientSecret();
         resource.header(HttpHeaders.AUTHORIZATION, "Basic " + Base64.getEncoder().encodeToString(cred.getBytes(StandardCharsets.UTF_8)));
-        return resource.post(Entity.entity(parameters, MediaType.APPLICATION_FORM_URLENCODED_TYPE), OAuthToken.class);
+        return resource.post(Entity.form(parameters), OAuthToken.class);
     }
 }

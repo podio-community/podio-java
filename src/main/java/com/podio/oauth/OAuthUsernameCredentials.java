@@ -1,6 +1,6 @@
 package com.podio.oauth;
 
-import java.util.Map;
+import javax.ws.rs.core.MultivaluedMap;
 
 public class OAuthUsernameCredentials implements OAuthUserCredentials {
 
@@ -26,9 +26,9 @@ public class OAuthUsernameCredentials implements OAuthUserCredentials {
         return "password";
     }
 
-    public void addParameters(Map<String, String> map) {
-        map.put("username", username);
-        map.put("password", password);
+    public void addParameters(MultivaluedMap<String, String> map) {
+        map.add("username", username);
+        map.add("password", password);
     }
 
 }

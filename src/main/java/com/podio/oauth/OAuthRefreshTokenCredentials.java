@@ -1,6 +1,6 @@
 package com.podio.oauth;
 
-import java.util.Map;
+import javax.ws.rs.core.MultivaluedMap;
 
 public class OAuthRefreshTokenCredentials implements OAuthUserCredentials {
 
@@ -15,7 +15,7 @@ public class OAuthRefreshTokenCredentials implements OAuthUserCredentials {
         return "refresh_token";
     }
 
-    public void addParameters(Map<String, String> map) {
-        map.put("refresh_token", refreshToken);
+    public void addParameters(MultivaluedMap<String, String> map) {
+        map.add("refresh_token", refreshToken);
     }
 }

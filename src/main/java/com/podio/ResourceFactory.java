@@ -68,9 +68,7 @@ public final class ResourceFactory {
         this.apiResource = client.target(getURI(apiHostname, port, ssl));
         this.fileResource = client.target(getURI(fileHostname, port, ssl));
 
-        AuthProvider authProvider = new AuthProvider(this, clientCredentials,
-                userCredentials);
-        this.authProvider = authProvider;
+        this.authProvider = new AuthProvider(this, clientCredentials, userCredentials);
     }
 
     private URI getURI(String hostname, int port, boolean ssl) {
@@ -89,27 +87,18 @@ public final class ResourceFactory {
         mapper.setSerializationInclusion(Inclusion.NON_NULL);
 
         CustomSerializerFactory serializerFactory = new CustomSerializerFactory();
-        serializerFactory.addSpecificMapping(DateTime.class,
-                new DateTimeSerializer());
-        serializerFactory.addSpecificMapping(LocalDate.class,
-                new LocalDateSerializer());
-        serializerFactory.addGenericMapping(TimeZone.class,
-                new TimeZoneSerializer());
-        serializerFactory.addSpecificMapping(Locale.class,
-                new LocaleSerializer());
+        serializerFactory.addSpecificMapping(DateTime.class, new DateTimeSerializer());
+        serializerFactory.addSpecificMapping(LocalDate.class, new LocalDateSerializer());
+        serializerFactory.addGenericMapping(TimeZone.class, new TimeZoneSerializer());
+        serializerFactory.addSpecificMapping(Locale.class, new LocaleSerializer());
         mapper.setSerializerFactory(serializerFactory);
 
         CustomDeserializerFactory deserializerFactory = new CustomDeserializerFactory();
-        deserializerFactory.addSpecificMapping(DateTime.class,
-                new DateTimeDeserializer());
-        deserializerFactory.addSpecificMapping(LocalDate.class,
-                new LocalDateDeserializer());
-        deserializerFactory.addSpecificMapping(TimeZone.class,
-                new TimeZoneDeserializer());
-        deserializerFactory.addSpecificMapping(Locale.class,
-                new LocaleDeserializer());
-        mapper.setDeserializerProvider(new StdDeserializerProvider(
-                deserializerFactory));
+        deserializerFactory.addSpecificMapping(DateTime.class, new DateTimeDeserializer());
+        deserializerFactory.addSpecificMapping(LocalDate.class, new LocalDateDeserializer());
+        deserializerFactory.addSpecificMapping(TimeZone.class, new TimeZoneDeserializer());
+        deserializerFactory.addSpecificMapping(Locale.class, new LocaleDeserializer());
+        mapper.setDeserializerProvider(new StdDeserializerProvider(deserializerFactory));
 
         return new CustomJacksonJsonProvider(mapper);
     }
