@@ -1,10 +1,10 @@
 package com.podio.oauth;
 
-import javax.ws.rs.core.MultivaluedMap;
+import java.util.Map;
 
 public interface OAuthUserCredentials {
 
 	String getType();
 
-	void addParameters(MultivaluedMap<String, String> map);
+	void addParameters(Map<String, String> map);
 }

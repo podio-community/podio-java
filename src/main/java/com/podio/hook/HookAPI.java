@@ -2,13 +2,14 @@ package com.podio.hook;
 
 import java.util.List;
 
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 
 import com.podio.BaseAPI;
 import com.podio.ResourceFactory;
 import com.podio.common.Empty;
 import com.podio.common.Reference;
-import com.sun.jersey.api.client.GenericType;
 
 public class HookAPI extends BaseAPI {
 
@@ -30,8 +31,7 @@ public class HookAPI extends BaseAPI {
 				.getApiResource(
 						"/hook/" + object.getType() + "/" + object.getId()
 								+ "/")
-				.entity(create, MediaType.APPLICATION_JSON)
-				.post(HookCreateResponse.class).getId();
+				.post(Entity.entity(create, MediaType.APPLICATION_JSON), HookCreateResponse.class).getId();
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class HookAPI extends BaseAPI {
 	 */
 	public void requestVerification(int id) {
 		getResourceFactory().getApiResource("/hook/" + id + "/verify/request")
-				.entity(new Empty(), MediaType.APPLICATION_JSON_TYPE).post();
+				.post(Entity.entity(new Empty(), MediaType.APPLICATION_JSON_TYPE));
 	}
 
 	/**
@@ -84,7 +84,6 @@ public class HookAPI extends BaseAPI {
 	 */
 	public void validateVerification(int id, String code) {
 		getResourceFactory().getApiResource("/hook/" + id + "/verify/validate")
-				.entity(new HookValidate(code), MediaType.APPLICATION_JSON)
-				.post();
+				.post(Entity.entity(new HookValidate(code), MediaType.APPLICATION_JSON));
 	}
 }

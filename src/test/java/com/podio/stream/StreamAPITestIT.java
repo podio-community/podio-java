@@ -116,7 +116,7 @@ public class StreamAPITestIT {
 
 	@Test
 	public void getAppStreamV2() {
-		List<StreamObjectV2> objects = getAPI().getAppStream(1, 3, 2);
+		List<StreamObjectV2> objects = getAPI().getAppStream(1, 3, 2, null, null);
 
 		Assert.assertEquals(objects.size(), 3);
 	}

@@ -1,9 +1,10 @@
 package com.podio.embed;
 
-import javax.ws.rs.core.MediaType;
-
 import com.podio.BaseAPI;
 import com.podio.ResourceFactory;
+
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
 
 /**
  * Embeds are links shared by users in statuses, conversations and comments. One
@@ -25,7 +26,6 @@ public class EmbedAPI extends BaseAPI {
 	 */
 	public Embed createEmbed(String url) {
 		return getResourceFactory().getApiResource("/embed/")
-				.entity(new EmbedCreate(url), MediaType.APPLICATION_JSON_TYPE)
-				.post(Embed.class);
+				.post(Entity.entity(new EmbedCreate(url), MediaType.APPLICATION_JSON_TYPE), Embed.class);
 	}
 }

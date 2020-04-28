@@ -12,7 +12,7 @@ public class UserStatus {
 
 	private Profile profile;
 
-	private Map<String, Map<String, ?>> properties;
+	private Map<String, Map<String, String>> properties;
 
 	private int inboxNew;
 	
@@ -38,11 +38,11 @@ public class UserStatus {
 		this.profile = profile;
 	}
 
-	public Map<String, Map<String, ?>> getProperties() {
+	public Map<String, Map<String, String>> getProperties() {
 		return properties;
 	}
 
-	public void setProperties(Map<String, Map<String, ?>> properties) {
+	public void setProperties(Map<String, Map<String, String>> properties) {
 		this.properties = properties;
 	}
 

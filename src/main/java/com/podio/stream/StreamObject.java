@@ -29,7 +29,7 @@ public class StreamObject {
 	/**
 	 * The object itself in short form
 	 */
-	private HashMap<String, Object> object;
+	private HashMap<String, String> object;
 
 	/**
 	 * <code>true</code> if comments are allowed, <code>false</code> otherwise
@@ -87,11 +87,11 @@ public class StreamObject {
 		this.id = id;
 	}
 
-	public HashMap<String, Object> getObject() {
+	public HashMap<String, String> getObject() {
 		return object;
 	}
 
-	public void setObject(HashMap<String, Object> object) {
+	public void setObject(HashMap<String, String> object) {
 		this.object = object;
 	}
 

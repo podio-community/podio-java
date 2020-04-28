@@ -1,15 +1,15 @@
 package com.podio.stream;
 
-import java.util.List;
-
-import org.joda.time.DateTime;
-
 import com.podio.BaseAPI;
 import com.podio.ResourceFactory;
 import com.podio.common.Reference;
 import com.podio.serialize.DateTimeUtil;
-import com.sun.jersey.api.client.GenericType;
-import com.sun.jersey.api.client.WebResource;
+import org.joda.time.DateTime;
+
+import javax.ws.rs.core.GenericType;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Subscriptions allows the user to be notified when an object is created,
@@ -198,49 +198,48 @@ public class StreamAPI extends BaseAPI {
 	 * @return The list of stream objects
 	 */
 	public List<StreamObjectV2> getAppStream(int appId, Integer limit,
-			Integer offset) {
-		return getStreamV2("/stream/app/" + appId + "/", limit, offset, null,
-				null);
+											 Integer offset, DateTime dateFrom, DateTime dateTo) {
+		return getStreamV2("/stream/app/" + appId + "/", limit, offset, dateFrom,
+				dateTo);
 	}
 
 	private List<StreamObject> getStream(String path, Integer limit,
 			Integer offset, DateTime dateFrom, DateTime dateTo) {
-		WebResource resource = getResourceFactory().getApiResource(path);
+		Map<String, String> queryParams = new HashMap<>();
 		if (limit != null) {
-			resource = resource.queryParam("limit", limit.toString());
+			queryParams.put("limit", limit.toString());
 		}
 		if (offset != null) {
-			resource = resource.queryParam("offset", offset.toString());
+			queryParams.put("offset", offset.toString());
 		}
 		if (dateFrom != null) {
-			resource = resource.queryParam("date_from",
-					DateTimeUtil.formatDateTime(dateFrom));
+			queryParams.put("date_from", DateTimeUtil.formatDateTime(dateFrom));
 		}
 		if (dateTo != null) {
-			resource = resource.queryParam("date_to",
-					DateTimeUtil.formatDateTime(dateTo));
+			queryParams.put("date_to", DateTimeUtil.formatDateTime(dateTo));
 		}
+		var resource = getResourceFactory().getApiResource(path, queryParams);
+
 		return resource.get(new GenericType<List<StreamObject>>() {
 		});
 	}
 
 	private List<StreamObjectV2> getStreamV2(String path, Integer limit,
 			Integer offset, DateTime dateFrom, DateTime dateTo) {
-		WebResource resource = getResourceFactory().getApiResource(path);
+		Map<String, String> queryParams = new HashMap<>();
 		if (limit != null) {
-			resource = resource.queryParam("limit", limit.toString());
+			queryParams.put("limit", limit.toString());
 		}
 		if (offset != null) {
-			resource = resource.queryParam("offset", offset.toString());
+			queryParams.put("offset", offset.toString());
 		}
 		if (dateFrom != null) {
-			resource = resource.queryParam("date_from",
-					DateTimeUtil.formatDateTime(dateFrom));
+			queryParams.put("date_from", DateTimeUtil.formatDateTime(dateFrom));
 		}
 		if (dateTo != null) {
-			resource = resource.queryParam("date_to",
-					DateTimeUtil.formatDateTime(dateTo));
+			queryParams.put("date_to", DateTimeUtil.formatDateTime(dateTo));
 		}
+		var resource = getResourceFactory().getApiResource(path, queryParams);
 		return resource.get(new GenericType<List<StreamObjectV2>>() {
 		});
 	}

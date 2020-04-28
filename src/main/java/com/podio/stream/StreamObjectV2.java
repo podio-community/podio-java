@@ -51,7 +51,7 @@ public class StreamObjectV2 extends CreatedBase {
 	/**
 	 * The object itself in short form
 	 */
-	private HashMap<String, Object> data;
+	private HashMap<String, String> data;
 
 	/**
 	 * <code>true</code> if comments are allowed, <code>false</code> otherwise
@@ -104,11 +104,11 @@ public class StreamObjectV2 extends CreatedBase {
 		this.id = id;
 	}
 
-	public HashMap<String, Object> getData() {
+	public HashMap<String, String> getData() {
 		return data;
 	}
 
-	public void setData(HashMap<String, Object> data) {
+	public void setData(HashMap<String, String> data) {
 		this.data = data;
 	}
 

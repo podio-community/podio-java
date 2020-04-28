@@ -27,7 +27,7 @@ public class StreamActivity extends CreatedBase {
 	/**
 	 * The object itself in short form
 	 */
-	private HashMap<String, Object> data;
+	private HashMap<String, String> data;
 
 	public ReferenceType getType() {
 		return type;
@@ -54,11 +54,11 @@ public class StreamActivity extends CreatedBase {
 		this.activityType = activityType;
 	}
 
-	public HashMap<String, Object> getData() {
+	public HashMap<String, String> getData() {
 		return data;
 	}
 
-	public void setData(HashMap<String, Object> data) {
+	public void setData(HashMap<String, String> data) {
 		this.data = data;
 	}
 }

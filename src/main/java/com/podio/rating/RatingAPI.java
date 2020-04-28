@@ -1,12 +1,12 @@
 package com.podio.rating;
 
-import java.util.Collections;
-
-import javax.ws.rs.core.MediaType;
-
 import com.podio.BaseAPI;
 import com.podio.ResourceFactory;
 import com.podio.common.Reference;
+
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
+import java.util.Collections;
 
 /**
  * Many objects can be rated including items and status messages. Ratings can be
@@ -41,9 +41,8 @@ public class RatingAPI extends BaseAPI {
 	public int createRating(Reference reference, RatingType type, int value) {
 		return getResourceFactory()
 				.getApiResource("/rating/" + reference.toURLFragment() + type)
-				.entity(Collections.singletonMap("value", value),
-						MediaType.APPLICATION_JSON_TYPE)
-				.post(RatingCreateResponse.class).getId();
+				.post(Entity.entity(Collections.singletonMap("value", value),
+						MediaType.APPLICATION_JSON_TYPE), RatingCreateResponse.class).getId();
 	}
 
 	/**

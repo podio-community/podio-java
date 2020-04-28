@@ -1,9 +1,10 @@
 package com.podio.status;
 
-import javax.ws.rs.core.MediaType;
-
 import com.podio.BaseAPI;
 import com.podio.ResourceFactory;
+
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
 
 /**
  * Status messages are small texts that the users wishes to share with the other
@@ -32,8 +33,7 @@ public class StatusAPI extends BaseAPI {
 	public int createStatus(int spaceId, StatusCreate status) {
 		return getResourceFactory()
 				.getApiResource("/status/space/" + spaceId + "/")
-				.entity(status, MediaType.APPLICATION_JSON_TYPE)
-				.post(StatusCreateResponse.class).getId();
+				.post(Entity.entity(status, MediaType.APPLICATION_JSON_TYPE), StatusCreateResponse.class).getId();
 	}
 
 	/**
@@ -72,6 +72,6 @@ public class StatusAPI extends BaseAPI {
 	 */
 	public void updateStatus(int statusId, StatusUpdate update) {
 		getResourceFactory().getApiResource("/status/" + statusId)
-				.entity(update, MediaType.APPLICATION_JSON_TYPE).put();
+				.put(Entity.entity(update, MediaType.APPLICATION_JSON_TYPE));
 	}
 }

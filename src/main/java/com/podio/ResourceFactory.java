@@ -1,12 +1,8 @@
 package com.podio;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Locale;
-import java.util.TimeZone;
-
-import javax.ws.rs.core.HttpHeaders;
-
+import com.podio.oauth.OAuthClientCredentials;
+import com.podio.oauth.OAuthUserCredentials;
+import com.podio.serialize.*;
 import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
 import org.codehaus.jackson.map.DeserializationConfig.Feature;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -15,25 +11,21 @@ import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import org.codehaus.jackson.map.deser.CustomDeserializerFactory;
 import org.codehaus.jackson.map.deser.StdDeserializerProvider;
 import org.codehaus.jackson.map.ser.CustomSerializerFactory;
+import org.glassfish.jersey.client.filter.EncodingFilter;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
+import org.glassfish.jersey.message.GZipEncoder;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
-import com.podio.oauth.OAuthClientCredentials;
-import com.podio.oauth.OAuthUserCredentials;
-import com.podio.serialize.DateTimeDeserializer;
-import com.podio.serialize.DateTimeSerializer;
-import com.podio.serialize.LocalDateDeserializer;
-import com.podio.serialize.LocalDateSerializer;
-import com.podio.serialize.LocaleDeserializer;
-import com.podio.serialize.LocaleSerializer;
-import com.podio.serialize.TimeZoneDeserializer;
-import com.podio.serialize.TimeZoneSerializer;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.config.ClientConfig;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
-import com.sun.jersey.api.client.filter.GZIPContentEncodingFilter;
-import com.sun.jersey.multipart.impl.MultiPartWriter;
+import javax.ws.rs.client.*;
+import javax.ws.rs.core.HttpHeaders;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Collections;
+import java.util.Locale;
+import java.util.Map;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This is the main low level entry point to access the Podio API. Construct
@@ -41,107 +33,123 @@ import com.sun.jersey.multipart.impl.MultiPartWriter;
  */
 public final class ResourceFactory {
 
-	private final WebResource apiResource;
-	private final WebResource fileResource;
+    private final WebTarget apiResource;
+    private final WebTarget fileResource;
 
-	private final LoginFilter loginFilter;
+    private final AuthProvider authProvider;
 
-	public ResourceFactory(OAuthClientCredentials clientCredentials,
-			OAuthUserCredentials userCredentials) {
-		this("api.podio.com", "files.podio.com", 443, true, false,
-				clientCredentials, userCredentials);
-	}
+    public ResourceFactory(OAuthClientCredentials clientCredentials,
+                           OAuthUserCredentials userCredentials) {
+        this("api.podio.com", "files.podio.com", 443, true, false,
+                clientCredentials, userCredentials);
+    }
 
-	public ResourceFactory(String apiHostname, String fileHostname, int port,
-			boolean ssl, boolean dryRun,
-			OAuthClientCredentials clientCredentials,
-			OAuthUserCredentials userCredentials) {
-		ClientConfig config = new DefaultClientConfig();
-		config.getSingletons().add(getJsonProvider());
-		config.getClasses().add(MultiPartWriter.class);
-		Client client = Client.create(config);
-		client.addFilter(new GZIPContentEncodingFilter(false));
-		client.addFilter(new ExceptionFilter());
-		client.addFilter(new RateLimitFilter());
-		if (dryRun) {
-			client.addFilter(new DryRunFilter());
-		}
-		// client.addFilter(new LoggingFilter());
+    public ResourceFactory(String apiHostname, String fileHostname, int port,
+                           boolean ssl, boolean dryRun,
+                           OAuthClientCredentials clientCredentials,
+                           OAuthUserCredentials userCredentials) {
 
-		this.apiResource = client.resource(getURI(apiHostname, port, ssl));
-		apiResource.header(HttpHeaders.USER_AGENT, "Podio Java API Client");
-		this.fileResource = client.resource(getURI(fileHostname, port, ssl));
-		fileResource.header(HttpHeaders.USER_AGENT, "Podio Java API Client");
+        ClientBuilder clientBuilder = ClientBuilder.newBuilder();
+        if (dryRun) {
+            clientBuilder.register(DryRunFilter.class);
+        }
+        Client client = clientBuilder
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(100, TimeUnit.SECONDS)
+                .register(MultiPartFeature.class)
+                .register(GZipEncoder.class)
+                .register(EncodingFilter.class)
+                .register(ExceptionFilter.class)
+                .register(getJsonProvider())
+                .register(RateLimitFilter.class)
+                .register((ClientRequestFilter) requestContext -> requestContext.getHeaders().putSingle(HttpHeaders.USER_AGENT, "Podio Java API Client"))
+                .build();
 
-		AuthProvider authProvider = new AuthProvider(this, clientCredentials,
-				userCredentials);
-		this.loginFilter = new LoginFilter(authProvider);
-	}
+        this.apiResource = client.target(getURI(apiHostname, port, ssl));
+        this.fileResource = client.target(getURI(fileHostname, port, ssl));
 
-	private URI getURI(String hostname, int port, boolean ssl) {
-		try {
-			return new URI(ssl ? "https" : "http", null, hostname, port, null,
-					null, null);
-		} catch (URISyntaxException e) {
-			throw new RuntimeException(e);
-		}
-	}
+        AuthProvider authProvider = new AuthProvider(this, clientCredentials,
+                userCredentials);
+        this.authProvider = authProvider;
+    }
 
-	private JacksonJsonProvider getJsonProvider() {
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.disable(Feature.FAIL_ON_UNKNOWN_PROPERTIES);
-		mapper.disable(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS);
-		mapper.setSerializationInclusion(Inclusion.NON_NULL);
+    private URI getURI(String hostname, int port, boolean ssl) {
+        try {
+            return new URI(ssl ? "https" : "http", null, hostname, port, null,
+                    null, null);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-		CustomSerializerFactory serializerFactory = new CustomSerializerFactory();
-		serializerFactory.addSpecificMapping(DateTime.class,
-				new DateTimeSerializer());
-		serializerFactory.addSpecificMapping(LocalDate.class,
-				new LocalDateSerializer());
-		serializerFactory.addGenericMapping(TimeZone.class,
-				new TimeZoneSerializer());
-		serializerFactory.addSpecificMapping(Locale.class,
-				new LocaleSerializer());
-		mapper.setSerializerFactory(serializerFactory);
+    private JacksonJsonProvider getJsonProvider() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(Feature.FAIL_ON_UNKNOWN_PROPERTIES);
+        mapper.disable(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS);
+        mapper.setSerializationInclusion(Inclusion.NON_NULL);
 
-		CustomDeserializerFactory deserializerFactory = new CustomDeserializerFactory();
-		deserializerFactory.addSpecificMapping(DateTime.class,
-				new DateTimeDeserializer());
-		deserializerFactory.addSpecificMapping(LocalDate.class,
-				new LocalDateDeserializer());
-		deserializerFactory.addSpecificMapping(TimeZone.class,
-				new TimeZoneDeserializer());
-		deserializerFactory.addSpecificMapping(Locale.class,
-				new LocaleDeserializer());
-		mapper.setDeserializerProvider(new StdDeserializerProvider(
-				deserializerFactory));
+        CustomSerializerFactory serializerFactory = new CustomSerializerFactory();
+        serializerFactory.addSpecificMapping(DateTime.class,
+                new DateTimeSerializer());
+        serializerFactory.addSpecificMapping(LocalDate.class,
+                new LocalDateSerializer());
+        serializerFactory.addGenericMapping(TimeZone.class,
+                new TimeZoneSerializer());
+        serializerFactory.addSpecificMapping(Locale.class,
+                new LocaleSerializer());
+        mapper.setSerializerFactory(serializerFactory);
 
-		return new CustomJacksonJsonProvider(mapper);
-	}
+        CustomDeserializerFactory deserializerFactory = new CustomDeserializerFactory();
+        deserializerFactory.addSpecificMapping(DateTime.class,
+                new DateTimeDeserializer());
+        deserializerFactory.addSpecificMapping(LocalDate.class,
+                new LocalDateDeserializer());
+        deserializerFactory.addSpecificMapping(TimeZone.class,
+                new TimeZoneDeserializer());
+        deserializerFactory.addSpecificMapping(Locale.class,
+                new LocaleDeserializer());
+        mapper.setDeserializerProvider(new StdDeserializerProvider(
+                deserializerFactory));
 
-	public WebResource getFileResource(String path) {
-		return getFileResource(path, true);
-	}
+        return new CustomJacksonJsonProvider(mapper);
+    }
 
-	public WebResource getFileResource(String path, boolean secure) {
-		WebResource subResource = fileResource.path(path);
-		if (secure) {
-			subResource.addFilter(this.loginFilter);
-		}
+    public Invocation.Builder getFileResource(String path) {
+        return getFileResource(path, true);
+    }
 
-		return subResource;
-	}
+    public Invocation.Builder getFileResource(String path, boolean secure) {
+        WebTarget subResource = fileResource.path(path);
+        var requestBuilder = subResource.request();
+        if (secure) {
+            requestBuilder.header(HttpHeaders.AUTHORIZATION, "OAuth2 " + authProvider.getToken().getAccessToken());
+        }
 
-	public WebResource getApiResource(String path) {
-		return getApiResource(path, true);
-	}
+        return requestBuilder;
+    }
 
-	public WebResource getApiResource(String path, boolean secure) {
-		WebResource subResource = apiResource.path(path);
-		if (secure) {
-			subResource.addFilter(this.loginFilter);
-		}
+    public Invocation.Builder getApiResource(String path) {
+        return getApiResource(path, true);
+    }
 
-		return subResource;
-	}
+    public Invocation.Builder getApiResource(String path, Map<String, String> queryParams) {
+        return getApiResource(path, true, queryParams);
+    }
+
+    public Invocation.Builder getApiResource(String path, boolean secure) {
+        return getApiResource(path, secure, Collections.emptyMap());
+    }
+
+    public Invocation.Builder getApiResource(String path, boolean secure, Map<String, String> queryParams) {
+        WebTarget subResource = apiResource.path(path);
+        for (Map.Entry<String, ?> entry : queryParams.entrySet()) {
+            subResource = subResource.queryParam(entry.getKey(), entry.getValue());
+        }
+        var requestBuilder = subResource.request();
+        if (secure) {
+            requestBuilder.header(HttpHeaders.AUTHORIZATION, "OAuth2 " + authProvider.getToken().getAccessToken());
+        }
+
+        return requestBuilder;
+    }
 }

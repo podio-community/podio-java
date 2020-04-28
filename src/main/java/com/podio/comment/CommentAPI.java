@@ -1,13 +1,15 @@
 package com.podio.comment;
 
-import java.util.List;
-
-import javax.ws.rs.core.MediaType;
-
 import com.podio.BaseAPI;
 import com.podio.ResourceFactory;
 import com.podio.common.Reference;
-import com.sun.jersey.api.client.GenericType;
+
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Comments are made by users on different objects. Objects can f.ex. be items,
@@ -64,14 +66,12 @@ public class CommentAPI extends BaseAPI {
 	 */
 	public int addComment(Reference reference, CommentCreate comment,
 			boolean silent, boolean hook) {
+		Map<String, String> queryParams = new HashMap<>();
+		queryParams.put("silent", silent ? "1" : "0");
+		queryParams.put("hook", hook ? "1" : "0");
 		return getResourceFactory()
-				.getApiResource(
-						"/comment/" + reference.getType() + "/"
-								+ reference.getId())
-				.queryParam("silent", silent ? "1" : "0")
-				.queryParam("hook", hook ? "1" : "0")
-				.entity(comment, MediaType.APPLICATION_JSON_TYPE)
-				.post(CommentCreateResponse.class).getId();
+				.getApiResource("/comment/" + reference.getType() + "/" + reference.getId(), queryParams)
+				.post(Entity.entity(comment, MediaType.APPLICATION_JSON_TYPE), CommentCreateResponse.class).getId();
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class CommentAPI extends BaseAPI {
 	 */
 	public void updateComment(int commentId, CommentUpdate comment) {
 		getResourceFactory().getApiResource("/comment/" + commentId)
-				.entity(comment, MediaType.APPLICATION_JSON_TYPE).put();
+				.put(Entity.entity(comment, MediaType.APPLICATION_JSON_TYPE));
 	}
 
 	/**

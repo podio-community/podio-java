@@ -1,19 +1,11 @@
 package com.podio.notification;
 
-import java.util.Collection;
-import java.util.List;
-
-import javax.ws.rs.core.MediaType;
-
-import org.joda.time.DateTime;
-
 import com.podio.BaseAPI;
 import com.podio.ResourceFactory;
-import com.podio.common.CSVUtil;
 import com.podio.common.Empty;
-import com.podio.serialize.DateTimeUtil;
-import com.sun.jersey.api.client.GenericType;
-import com.sun.jersey.api.client.WebResource;
+
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
 
 /**
  * A notification is an information about an event that occured in Podio. A
@@ -33,7 +25,7 @@ public class NotificationAPI extends BaseAPI {
 	 * @return The number of unread notifications
 	 */
 	public int getInboxNewCount() {
-		WebResource resource = getResourceFactory().getApiResource(
+		var resource = getResourceFactory().getApiResource(
 				"/notification/inbox/new/count");
 
 		return resource.get(InboxNewCount.class).getNewNotifications();
@@ -49,6 +41,6 @@ public class NotificationAPI extends BaseAPI {
 	public void markAsViewed(int notificationId) {
 		getResourceFactory()
 				.getApiResource("/notification/" + notificationId + "/viewed")
-				.entity(new Empty(), MediaType.APPLICATION_JSON_TYPE).post();
+				.post(Entity.entity(new Empty(), MediaType.APPLICATION_JSON_TYPE));
 	}
 }

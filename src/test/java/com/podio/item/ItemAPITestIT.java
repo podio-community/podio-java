@@ -91,7 +91,7 @@ public class ItemAPITestIT {
 				1,
 				1,
 				Collections.singletonList(Collections
-						.<String, Object> singletonMap("value", "no")), false, false);
+						.<String, String> singletonMap("value", "no")), false, false);
 	}
 
 	@Test

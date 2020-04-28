@@ -1,23 +1,22 @@
 package com.podio;
 
+import javax.ws.rs.core.Response;
 import java.util.Map;
-
-import com.sun.jersey.api.client.ClientResponse.Status;
 
 public class APIApplicationException extends RuntimeException {
 
 	private static final long serialVersionUID = -4533177892434958205L;
 
-	private final Status status;
+	private final Response.StatusType status;
 
 	private final String error;
 
 	private final String description;
 
-	private final Map<String, Object> parameters;
+	private final Map<String, String> parameters;
 
-	public APIApplicationException(Status status, String error,
-			String description, Map<String, Object> parameters) {
+	public APIApplicationException(Response.StatusType status, String error,
+			String description, Map<String, String> parameters) {
 		super();
 		this.status = status;
 		this.error = error;
@@ -32,7 +31,7 @@ public class APIApplicationException extends RuntimeException {
 				+ "]";
 	}
 
-	public Status getStatus() {
+	public Response.StatusType getStatus() {
 		return status;
 	}
 
@@ -44,7 +43,7 @@ public class APIApplicationException extends RuntimeException {
 		return description;
 	}
 
-	public Map<String, Object> getParameters() {
+	public Map<String, String> getParameters() {
 		return parameters;
 	}
 }

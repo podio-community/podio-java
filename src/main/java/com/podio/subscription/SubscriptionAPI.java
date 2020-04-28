@@ -1,11 +1,12 @@
 package com.podio.subscription;
 
-import javax.ws.rs.core.MediaType;
-
 import com.podio.BaseAPI;
 import com.podio.ResourceFactory;
 import com.podio.common.Empty;
 import com.podio.common.Reference;
+
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.MediaType;
 
 /**
  * Subscriptions allows the user to be notified when an object is created,
@@ -54,7 +55,7 @@ public class SubscriptionAPI extends BaseAPI {
 		getResourceFactory()
 				.getApiResource(
 						"/subscription/" + reference.toURLFragment(false))
-				.entity(new Empty(), MediaType.APPLICATION_JSON_TYPE).post();
+				.post(Entity.entity(new Empty(), MediaType.APPLICATION_JSON_TYPE));
 	}
 
 	/**

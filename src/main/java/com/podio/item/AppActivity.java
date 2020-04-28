@@ -32,7 +32,7 @@ public class AppActivity {
 	/**
 	 * Any data associated with the event
 	 */
-	private HashMap<String, Object> data;
+	private HashMap<String, String> data;
 
 	/**
 	 * The user who was responsible for the event
@@ -73,11 +73,11 @@ public class AppActivity {
 		this.title = title;
 	}
 
-	public HashMap<String, Object> getData() {
+	public HashMap<String, String> getData() {
 		return data;
 	}
 
-	public void setData(HashMap<String, Object> data) {
+	public void setData(HashMap<String, String> data) {
 		this.data = data;
 	}
 

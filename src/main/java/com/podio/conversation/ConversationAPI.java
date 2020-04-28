@@ -1,14 +1,13 @@
 package com.podio.conversation;
 
-import java.util.List;
-
-import javax.ws.rs.core.MediaType;
-
 import com.podio.BaseAPI;
 import com.podio.ResourceFactory;
 import com.podio.common.Reference;
-import com.sun.jersey.api.client.GenericType;
-import com.sun.jersey.api.client.WebResource;
+
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 public class ConversationAPI extends BaseAPI {
 
@@ -51,18 +50,10 @@ public class ConversationAPI extends BaseAPI {
 	 */
 	public int createConversation(String subject, String text,
 			List<Integer> participants, Reference reference) {
-		WebResource resource;
-		if (reference != null) {
-			resource = getResourceFactory().getApiResource(
-					"/conversation/" + reference.toURLFragment());
-		} else {
-			resource = getResourceFactory().getApiResource("/conversation/");
-		}
-
-		return resource
-				.entity(new ConversationCreate(subject, text, participants),
-						MediaType.APPLICATION_JSON_TYPE)
-				.post(ConversationCreateResponse.class).getConversationId();
+		String url = reference != null ?  "/conversation/" + reference.toURLFragment() :"/conversation/";
+			return getResourceFactory().getApiResource(url)
+					.post(Entity.entity(new ConversationCreate(subject, text, participants),
+						MediaType.APPLICATION_JSON_TYPE), ConversationCreateResponse.class).getConversationId();
 	}
 
 	/**
@@ -106,8 +97,7 @@ public class ConversationAPI extends BaseAPI {
 	public int addReply(int conversationId, String text) {
 		return getResourceFactory()
 				.getApiResource("/conversation/" + conversationId + "/reply")
-				.entity(new MessageCreate(text),
-						MediaType.APPLICATION_JSON_TYPE)
-				.get(MessageCreateResponse.class).getMessageId();
+				.post(Entity.entity(new MessageCreate(text),
+						MediaType.APPLICATION_JSON_TYPE), MessageCreateResponse.class).getMessageId();
 	}
 }

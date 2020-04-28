@@ -1,17 +1,13 @@
 package com.podio.tag;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
-
 import com.podio.BaseAPI;
 import com.podio.ResourceFactory;
 import com.podio.common.Reference;
-import com.sun.jersey.api.client.GenericType;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
+
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import java.util.*;
 
 /**
  * Tags are words or short sentences that are used as metadata for objects. For
@@ -38,7 +34,7 @@ public class TagAPI extends BaseAPI {
 	public void createTags(Reference reference, Collection<String> tags) {
 		getResourceFactory()
 				.getApiResource("/tag/" + reference.toURLFragment())
-				.entity(tags, MediaType.APPLICATION_JSON_TYPE).post();
+				.post(Entity.entity(tags, MediaType.APPLICATION_JSON_TYPE));
 	}
 
 	/**
@@ -65,7 +61,7 @@ public class TagAPI extends BaseAPI {
 	public void updateTags(Reference reference, Collection<String> tags) {
 		getResourceFactory()
 				.getApiResource("/tag/" + reference.toURLFragment())
-				.entity(tags, MediaType.APPLICATION_JSON_TYPE).put();
+				.put(Entity.entity(tags, MediaType.APPLICATION_JSON_TYPE));
 	}
 
 	/**
@@ -90,8 +86,8 @@ public class TagAPI extends BaseAPI {
 	 */
 	public void removeTag(Reference reference, String tag) {
 		getResourceFactory()
-				.getApiResource("/tag/" + reference.toURLFragment())
-				.queryParam("text", tag).delete();
+				.getApiResource("/tag/" + reference.toURLFragment(), Collections.singletonMap("text", tag))
+				.delete();
 	}
 
 	/**
@@ -118,10 +114,9 @@ public class TagAPI extends BaseAPI {
 	 *            returned and/or text of tag to search for
 	 * @return The list of tags with their count
 	 */
-	public List<TagCount> getTagsOnApp(int appId, MultivaluedMap<String, String> options) {
+	public List<TagCount> getTagsOnApp(int appId, Map<String, String> options) {
 		return getResourceFactory()
-				.getApiResource("/tag/app/" + appId + "/")
-				.queryParams(options)
+				.getApiResource("/tag/app/" + appId + "/", options)
 				.get(new GenericType<List<TagCount>>() { });
 	}
 	
@@ -138,10 +133,10 @@ public class TagAPI extends BaseAPI {
 	 * @return The list of tags with their count
 	 */
 	public List<TagCount> getTagsOnApp(int appId, int limit, String text) {
-		MultivaluedMap<String, String> params=new MultivaluedMapImpl();
-		params.add("limit", new Integer(limit).toString());
+		Map<String, String> params = new HashMap<>();
+		params.put("limit", Integer.toString(limit));
 		if ((text != null) && (!text.isEmpty())) {
-			params.add("text", text);
+			params.put("text", text);
 		}
 		return getTagsOnApp(appId, params);
 	}
@@ -175,10 +170,9 @@ public class TagAPI extends BaseAPI {
 	 *            returned and/or text of tag to search for
 	 * @return The list of tags with their count
 	 */
-	public List<TagCount> getTagsOnOrg(int orgId, MultivaluedMap<String, String> options) {
+	public List<TagCount> getTagsOnOrg(int orgId, Map<String, String> options) {
 		return getResourceFactory()
-				.getApiResource("/tag/org/" + orgId + "/")
-				.queryParams(options)
+				.getApiResource("/tag/org/" + orgId + "/", options)
 				.get(new GenericType<List<TagCount>>() { });
 	}
 	
@@ -197,10 +191,10 @@ public class TagAPI extends BaseAPI {
 	 * @return The list of tags with their count
 	 */
 	public List<TagCount> getTagsOnOrg(int orgId, int limit, String text) {
-		MultivaluedMap<String, String> params=new MultivaluedMapImpl();
-		params.add("limit", new Integer(limit).toString());
+		Map<String, String> params = new HashMap<>();
+		params.put("limit", Integer.toString(limit));
 		if ((text != null) && (!text.isEmpty())) {
-			params.add("text", text);
+			params.put("text", text);
 		}
 		return getTagsOnOrg(orgId, params);
 	}
@@ -232,10 +226,9 @@ public class TagAPI extends BaseAPI {
 	 *            returned and/or text of tag to search for
 	 * @return The list of tags with their count
 	 */
-	public List<TagCount> getTagsOnSpace(int spaceId, MultivaluedMap<String, String> options) {
+	public List<TagCount> getTagsOnSpace(int spaceId, Map<String, String> options) {
 		return getResourceFactory()
-				.getApiResource("/tag/space/" + spaceId + "/")
-				.queryParams(options)
+				.getApiResource("/tag/space/" + spaceId + "/", options)
 				.get(new GenericType<List<TagCount>>() { });
 	}
 	
@@ -253,10 +246,10 @@ public class TagAPI extends BaseAPI {
 	 * @return The list of tags with their count
 	 */
 	public List<TagCount> getTagsOnSpace(int spaceId, int limit, String text) {
-		MultivaluedMap<String, String> params=new MultivaluedMapImpl();
-		params.add("limit", new Integer(limit).toString());
+		Map<String, String> params = new HashMap<>();
+		params.put("limit", Integer.toString(limit));
 		if ((text != null) && (!text.isEmpty())) {
-			params.add("text", text);
+			params.put("text", text);
 		}
 		return getTagsOnSpace(spaceId, params);
 	}
@@ -273,8 +266,7 @@ public class TagAPI extends BaseAPI {
 	 */
 	public List<TagReference> getTagsOnAppWithText(int appId, String text) {
 		return getResourceFactory()
-				.getApiResource("/tag/app/" + appId + "/search/")
-				.queryParam("text", text)
+				.getApiResource("/tag/app/" + appId + "/search/", Collections.singletonMap("text", text))
 				.get(new GenericType<List<TagReference>>() {
 				});
 	}
@@ -291,8 +283,7 @@ public class TagAPI extends BaseAPI {
 	 */
 	public List<TagReference> getTagsOnOrgWithText(int orgId, String text) {
 		return getResourceFactory()
-				.getApiResource("/tag/org/" + orgId + "/search/")
-				.queryParam("text", text)
+				.getApiResource("/tag/org/" + orgId + "/search/", Collections.singletonMap("text", text))
 				.get(new GenericType<List<TagReference>>() {
 				});
 	}
@@ -309,8 +300,7 @@ public class TagAPI extends BaseAPI {
 	 */
 	public List<TagReference> getTagsOnSpaceWithText(int spaceId, String text) {
 		return getResourceFactory()
-				.getApiResource("/tag/space/" + spaceId + "/search/")
-				.queryParam("text", text)
+				.getApiResource("/tag/space/" + spaceId + "/search/", Collections.singletonMap("text", text))
 				.get(new GenericType<List<TagReference>>() {
 				});
 	}

@@ -1,39 +1,36 @@
 package com.podio;
 
+import org.codehaus.jackson.map.ObjectMapper;
+
+import javax.ws.rs.client.ClientRequestContext;
+import javax.ws.rs.client.ClientResponseContext;
+import javax.ws.rs.client.ClientResponseFilter;
+import javax.ws.rs.core.Response.Status.Family;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
-import javax.ws.rs.core.Response.Status.Family;
+public class ExceptionFilter implements ClientResponseFilter {
 
-import com.sun.jersey.api.client.ClientHandlerException;
-import com.sun.jersey.api.client.ClientRequest;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.GenericType;
-import com.sun.jersey.api.client.filter.ClientFilter;
+    @Override
+    public void filter(ClientRequestContext requestContext, ClientResponseContext responseContext) throws IOException {
+        try {
+            if (responseContext.getStatusInfo() == null
+                    || responseContext.getStatusInfo().getFamily() != Family.SUCCESSFUL) {
+                if (responseContext.hasEntity()) {
+                    var errorData = new ObjectMapper().readValue(responseContext.getEntityStream(), Map.class);
 
-public class ExceptionFilter extends ClientFilter {
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public ClientResponse handle(ClientRequest cr)
-			throws ClientHandlerException {
-		try {
-			ClientResponse response = getNext().handle(cr);
-			if (response.getClientResponseStatus() == null
-					|| response.getClientResponseStatus().getFamily() != Family.SUCCESSFUL) {
-				Map<String, Object> errorData = response
-						.getEntity(new GenericType<Map<String, Object>>() {
-						});
-
-				throw new APIApplicationException(
-						response.getClientResponseStatus(),
-						(String) errorData.get("error"),
-						(String) errorData.get("error_description"),
-						(Map<String, Object>) errorData.get("parameters"));
-			} else {
-				return response;
-			}
-		} catch (ClientHandlerException e) {
-			throw new APITransportException(e.getCause());
-		}
-	}
+                    throw new APIApplicationException(
+                            responseContext.getStatusInfo(),
+                            (String) errorData.get("error"),
+                            (String) errorData.get("error_description"),
+                            (Map<String, String>) errorData.get("parameters"));
+                } else {
+                    throw new APIApplicationException(responseContext.getStatusInfo(), "unknown error", "empty response", new HashMap<>());
+                }
+            }
+        } catch (Exception e) {
+            throw new APITransportException(e.getCause());
+        }
+    }
 }

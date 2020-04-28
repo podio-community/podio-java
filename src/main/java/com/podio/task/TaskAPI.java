@@ -1,16 +1,17 @@
 package com.podio.task;
 
-import java.util.List;
-
-import javax.ws.rs.core.MediaType;
-
-import org.joda.time.LocalDate;
-
 import com.podio.BaseAPI;
 import com.podio.ResourceFactory;
 import com.podio.common.Empty;
 import com.podio.common.Reference;
-import com.sun.jersey.api.client.GenericType;
+import org.joda.time.LocalDate;
+
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Tasks are used to track what work has to be done. Tasks have the following
@@ -77,8 +78,8 @@ public class TaskAPI extends BaseAPI {
 	public void assignTask(int taskId, int responsible) {
 		getResourceFactory()
 				.getApiResource("/task/" + taskId + "/assign")
-				.entity(new AssignValue(responsible),
-						MediaType.APPLICATION_JSON_TYPE).post();
+				.post(Entity.entity(new AssignValue(responsible),
+						MediaType.APPLICATION_JSON_TYPE));
 	}
 
 	/**
@@ -89,7 +90,7 @@ public class TaskAPI extends BaseAPI {
 	 */
 	public void completeTask(int taskId) {
 		getResourceFactory().getApiResource("/task/" + taskId + "/complete")
-				.entity(new Empty(), MediaType.APPLICATION_JSON_TYPE).post();
+				.post(Entity.entity(new Empty(), MediaType.APPLICATION_JSON_TYPE));
 	}
 
 	/**
@@ -100,7 +101,7 @@ public class TaskAPI extends BaseAPI {
 	 */
 	public void incompleteTask(int taskId) {
 		getResourceFactory().getApiResource("/task/" + taskId + "/incomplete")
-				.entity(new Empty(), MediaType.APPLICATION_JSON_TYPE).post();
+				.post(Entity.entity(new Empty(), MediaType.APPLICATION_JSON_TYPE));
 	}
 
 	/**
@@ -114,8 +115,8 @@ public class TaskAPI extends BaseAPI {
 	public void updateDueDate(int taskId, LocalDate dueDate) {
 		getResourceFactory()
 				.getApiResource("/task/" + taskId + "/due_date")
-				.entity(new TaskDueDate(dueDate),
-						MediaType.APPLICATION_JSON_TYPE).put();
+				.put(Entity.entity(new TaskDueDate(dueDate),
+						MediaType.APPLICATION_JSON_TYPE));
 	}
 
 	/**
@@ -129,8 +130,7 @@ public class TaskAPI extends BaseAPI {
 	 */
 	public void updatePrivate(int taskId, boolean priv) {
 		getResourceFactory().getApiResource("/task/" + taskId + "/private")
-				.entity(new TaskPrivate(priv), MediaType.APPLICATION_JSON_TYPE)
-				.put();
+				.put(Entity.entity(new TaskPrivate(priv), MediaType.APPLICATION_JSON_TYPE));
 	}
 
 	/**
@@ -143,8 +143,7 @@ public class TaskAPI extends BaseAPI {
 	 */
 	public void updateText(int taskId, String text) {
 		getResourceFactory().getApiResource("/task/" + taskId + "/text")
-				.entity(new TaskText(text), MediaType.APPLICATION_JSON_TYPE)
-				.put();
+				.put(Entity.entity(new TaskText(text), MediaType.APPLICATION_JSON_TYPE));
 	}
 
 	/**
@@ -172,12 +171,12 @@ public class TaskAPI extends BaseAPI {
 	 * @return The id of the newly created task
 	 */
 	public int createTask(TaskCreate task, boolean silent, boolean hook) {
+		Map<String, String> queryParams = new HashMap<>();
+		queryParams.put("silent", silent ? "1" : "0");
+		queryParams.put("hook", hook ? "1" : "0");
 		TaskCreateResponse response = getResourceFactory()
-				.getApiResource("/task/")
-				.queryParam("silent", silent ? "1" : "0")
-				.queryParam("hook", hook ? "1" : "0")
-				.entity(task, MediaType.APPLICATION_JSON_TYPE)
-				.post(TaskCreateResponse.class);
+				.getApiResource("/task/", queryParams)
+				.post(Entity.entity(task, MediaType.APPLICATION_JSON_TYPE), TaskCreateResponse.class);
 
 		return response.getId();
 	}
@@ -213,14 +212,14 @@ public class TaskAPI extends BaseAPI {
 	 */
 	public int createTaskWithReference(TaskCreate task, Reference reference,
 			boolean silent, boolean hook) {
+		Map<String, String> queryParams = new HashMap<>();
+		queryParams.put("silent", silent ? "1" : "0");
+		queryParams.put("hook", hook ? "1" : "0");
 		return getResourceFactory()
 				.getApiResource(
 						"/task/" + reference.getType().name().toLowerCase()
-								+ "/" + reference.getId() + "/")
-				.queryParam("silent", silent ? "1" : "0")
-				.queryParam("hook", hook ? "1" : "0")
-				.entity(task, MediaType.APPLICATION_JSON_TYPE)
-				.post(TaskCreateResponse.class).getId();
+								+ "/" + reference.getId() + "/", queryParams)
+				.post(Entity.entity(task, MediaType.APPLICATION_JSON_TYPE), TaskCreateResponse.class).getId();
 	}
 
 	/**

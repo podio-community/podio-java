@@ -1,10 +1,5 @@
 package com.podio.item;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.ws.rs.core.MediaType;
-
 import com.podio.BaseAPI;
 import com.podio.ResourceFactory;
 import com.podio.common.ToStringUtil;
@@ -12,8 +7,14 @@ import com.podio.filter.ExternalIdFilterBy;
 import com.podio.filter.FilterByValue;
 import com.podio.filter.SortBy;
 import com.podio.item.filter.ItemFilter;
-import com.sun.jersey.api.client.GenericType;
-import com.sun.jersey.api.client.WebResource;
+
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Items are entries in an app. If you think of app as a table, items will be
@@ -43,10 +44,8 @@ public class ItemAPI extends BaseAPI {
 	 * @return The id of the newly created item
 	 */
 	public int addItem(int appId, ItemCreate create, boolean silent) {
-		return getResourceFactory().getApiResource("/item/app/" + appId + "/")
-				.queryParam("silent", silent ? "1" : "0")
-				.entity(create, MediaType.APPLICATION_JSON_TYPE)
-				.post(ItemCreateResponse.class).getId();
+		return getResourceFactory().getApiResource("/item/app/" + appId + "/", Collections.singletonMap("silent", silent ? "1" : "0"))
+				.post(Entity.entity(create, MediaType.APPLICATION_JSON_TYPE), ItemCreateResponse.class).getId();
 	}
 
 	/**
@@ -76,10 +75,11 @@ public class ItemAPI extends BaseAPI {
 	 *            True if hooks should be executed for the change, false otherwise
 	 */
 	public void updateItem(int itemId, ItemUpdate update, boolean silent, boolean hook) {
-		getResourceFactory().getApiResource("/item/" + itemId)
-				.queryParam("silent", silent ? "1" : "0")
-				.queryParam("hook", hook ? "1" : "0")
-				.entity(update, MediaType.APPLICATION_JSON_TYPE).put();
+		Map<String, String> queryParams = new HashMap<>();
+		queryParams.put("silent", silent ? "1" : "0");
+		queryParams.put("hook", hook ? "1" : "0");
+		getResourceFactory().getApiResource("/item/" + itemId, queryParams)
+				.put(Entity.entity(update, MediaType.APPLICATION_JSON_TYPE));
 	}
 
 	/**
@@ -96,10 +96,11 @@ public class ItemAPI extends BaseAPI {
 	 */
 	public void updateItemValues(int itemId, List<FieldValuesUpdate> values,
 			boolean silent, boolean hook) {
-		getResourceFactory().getApiResource("/item/" + itemId + "/value/")
-				.queryParam("silent", silent ? "1" : "0")
-				.queryParam("hook", hook ? "1" : "0")
-				.entity(values, MediaType.APPLICATION_JSON_TYPE).put();
+		Map<String, String> queryParams = new HashMap<>();
+		queryParams.put("silent", silent ? "1" : "0");
+		queryParams.put("hook", hook ? "1" : "0");
+		getResourceFactory().getApiResource("/item/" + itemId + "/value/", queryParams)
+				.put(Entity.entity(values, MediaType.APPLICATION_JSON_TYPE));
 	}
 
 	/**
@@ -117,12 +118,13 @@ public class ItemAPI extends BaseAPI {
 	 *            True if hooks should be executed for the change, false otherwise
 	 */
 	public void updateItemFieldValues(int itemId, int fieldId,
-			List<Map<String, Object>> values, boolean silent, boolean hook) {
+			List<Map<String, String>> values, boolean silent, boolean hook) {
+		Map<String, String> queryParams = new HashMap<>();
+		queryParams.put("silent", silent ? "1" : "0");
+		queryParams.put("hook", hook ? "1" : "0");
 		getResourceFactory()
-				.getApiResource("/item/" + itemId + "/value/" + fieldId)
-				.queryParam("silent", silent ? "1" : "0")
-				.queryParam("hook", hook ? "1" : "0")
-				.entity(values, MediaType.APPLICATION_JSON_TYPE).put();
+				.getApiResource("/item/" + itemId + "/value/" + fieldId, queryParams)
+				.put(Entity.entity(values, MediaType.APPLICATION_JSON_TYPE));
 	}
 
 	/**
@@ -135,8 +137,8 @@ public class ItemAPI extends BaseAPI {
 	 *            True if the deletion should be silent, false otherwise
 	 */
 	public void deleteItem(int itemId, boolean silent) {
-		getResourceFactory().getApiResource("/item/" + itemId)
-				.queryParam("silent", silent ? "1" : "0").delete();
+		getResourceFactory().getApiResource("/item/" + itemId, Collections.singletonMap("silent", silent ? "1" : "0"))
+				.delete();
 	}
 
 	/**
@@ -185,21 +187,20 @@ public class ItemAPI extends BaseAPI {
 	 * @return The items that were valid for the field and with text matching
 	 */
 	public List<ItemMini> getItemsByFieldAndTitle(int fieldId, String text,
-												List<Integer> notItemIds, Integer limit) {
-		WebResource resource = getResourceFactory().getApiResource(
-			"/item/field/" + fieldId + "/find");
-
+												  List<Integer> notItemIds, Integer limit) {
+		Map<String, String> queryParams = new HashMap<>();
 		if (limit != null) {
-			resource = resource.queryParam("limit", limit.toString());
+			queryParams.put("limit", limit.toString());
 		}
 
 		if (notItemIds != null && notItemIds.size() > 0) {
-			resource = resource.queryParam(
-				"not_item_id", ToStringUtil.toString(notItemIds, ","));
+			queryParams.put("not_item_id", ToStringUtil.toString(notItemIds, ","));
 		}
+		queryParams.put("text", text);
+		var resource = getResourceFactory().getApiResource("/item/field/" + fieldId + "/find", queryParams);
 
-		resource = resource.queryParam("text", text);
-		return resource.get(new GenericType<List<ItemMini>>() {});
+		return resource.get(new GenericType<List<ItemMini>>() {
+		});
 	}
 
 	/**
@@ -269,7 +270,7 @@ public class ItemAPI extends BaseAPI {
 
 	public ItemsResponse filterItems(int appId, ItemFilter filter) {
 		return getResourceFactory().getApiResource("/item/app/" + appId + "/filter/")
-				.entity(filter, MediaType.APPLICATION_JSON_TYPE).post(ItemsResponse.class);
+				.post(Entity.entity(filter, MediaType.APPLICATION_JSON_TYPE), ItemsResponse.class);
 	}
 
 	/**
@@ -293,24 +294,24 @@ public class ItemAPI extends BaseAPI {
 	 */
 	public ItemsResponse getItems(int appId, Integer limit, Integer offset,
 			SortBy sortBy, Boolean sortDesc, FilterByValue<?>... filters) {
-		WebResource resource = getResourceFactory().getApiResource(
-				"/item/app/" + appId + "/v2/");
+		Map<String, String> queryParams = new HashMap<>();
 		if (limit != null) {
-			resource = resource.queryParam("limit", limit.toString());
+			queryParams.put("limit", limit.toString());
 		}
 		if (offset != null) {
-			resource = resource.queryParam("offset", offset.toString());
+			queryParams.put("offset", offset.toString());
 		}
 		if (sortBy != null) {
-			resource = resource.queryParam("sort_by", sortBy.getKey());
+			queryParams.put("sort_by", sortBy.getKey());
 		}
 		if (sortDesc != null) {
-			resource = resource.queryParam("sort_desc", sortDesc ? "1" : "0");
+			queryParams.put("sort_desc", sortDesc ? "1" : "0");
 		}
 		for (FilterByValue<?> filter : filters) {
-			resource = resource.queryParam(filter.getBy().getKey(),
-					filter.getFormattedValue());
+			queryParams.put(filter.getBy().getKey(), filter.getFormattedValue());
 		}
+
+		var resource = getResourceFactory().getApiResource("/item/app/" + appId + "/v2/", queryParams);
 
 		return resource.get(ItemsResponse.class);
 	}

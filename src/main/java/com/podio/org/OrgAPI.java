@@ -1,15 +1,13 @@
 package com.podio.org;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
-
 import com.podio.BaseAPI;
 import com.podio.ResourceFactory;
 import com.podio.space.Space;
-import com.sun.jersey.api.client.GenericType;
+
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import java.util.*;
 
 public class OrgAPI extends BaseAPI {
 
@@ -26,8 +24,7 @@ public class OrgAPI extends BaseAPI {
 	 */
 	public OrganizationCreateResponse createOrganization(OrganizationCreate data) {
 		return getResourceFactory().getApiResource("/org/")
-				.entity(data, MediaType.APPLICATION_JSON_TYPE)
-				.post(OrganizationCreateResponse.class);
+				.post(Entity.entity(data, MediaType.APPLICATION_JSON_TYPE), OrganizationCreateResponse.class);
 	}
 
 	/**
@@ -41,7 +38,7 @@ public class OrgAPI extends BaseAPI {
 	 */
 	public void updateOrganization(int orgId, OrganizationCreate data) {
 		getResourceFactory().getApiResource("/org/" + orgId)
-				.entity(data, MediaType.APPLICATION_JSON_TYPE).put();
+				.put(Entity.entity(data, MediaType.APPLICATION_JSON_TYPE));
 	}
 
 	/**
@@ -75,8 +72,8 @@ public class OrgAPI extends BaseAPI {
 	 * @return The organization
 	 */
 	public OrganizationMini getOrganizationByURL(String url) {
-		return getResourceFactory().getApiResource("/org/url")
-				.queryParam("url", url).get(OrganizationMini.class);
+		return getResourceFactory().getApiResource("/org/url", Collections.singletonMap("url", url))
+				.get(OrganizationMini.class);
 	}
 
 	/**
@@ -156,10 +153,11 @@ public class OrgAPI extends BaseAPI {
 	 * @return The list of members on the organization with detailed information
 	 */
 	public List<OrganizationMember> getMembers(int orgId, int offset, int limit) {
+		Map<String, String> queryParams = new HashMap<>();
+		queryParams.put("offset", Integer.toString(offset));
+		queryParams.put("limit", Integer.toString(limit));
 		return getResourceFactory()
-				.getApiResource("/org/" + orgId + "/member/")
-				.queryParam("offset", new Integer(offset).toString())
-				.queryParam("limit", new Integer(limit).toString())
+				.getApiResource("/org/" + orgId + "/member/", queryParams)
 				.get(new GenericType<List<OrganizationMember>>() { });
 	}
 	
@@ -175,10 +173,9 @@ public class OrgAPI extends BaseAPI {
 	 *            The parameters for get organization members
 	 * @return The list of members on the organization with detailed information
 	 */
-	public List<OrganizationMember> getMembers(int orgId, MultivaluedMap<String, String> options) {
+	public List<OrganizationMember> getMembers(int orgId, Map<String, String> options) {
 		return getResourceFactory()
-				.getApiResource("/org/" + orgId + "/member/")
-				.queryParams(options)
+				.getApiResource("/org/" + orgId + "/member/", options)
 				.get(new GenericType<List<OrganizationMember>>() { });
 	}
 

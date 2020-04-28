@@ -3,13 +3,13 @@ package com.podio.app;
 import java.util.Arrays;
 import java.util.List;
 
-import org.codehaus.jettison.json.JSONException;
 import org.junit.Assert;
 import org.junit.Test;
 
 import com.podio.APIApplicationException;
 import com.podio.APIFactoryProvider;
-import com.sun.jersey.api.client.ClientResponse.Status;
+
+import javax.ws.rs.core.Response;
 
 public class AppAPITestIT {
 
@@ -23,7 +23,7 @@ public class AppAPITestIT {
 			getAPI().getApp(222);
 			Assert.fail();
 		} catch (APIApplicationException e) {
-			Assert.assertEquals(e.getStatus(), Status.NOT_FOUND);
+			Assert.assertEquals(e.getStatus().toEnum(), Response.Status.NOT_FOUND);
 			Assert.assertEquals(e.getError(), "not_found");
 			Assert.assertEquals(e.getDescription(), "Object not found");
 			Assert.assertEquals(e.getParameters(), null);
@@ -31,7 +31,7 @@ public class AppAPITestIT {
 	}
 
 	@Test
-	public void getAppFull() throws JSONException {
+	public void getAppFull() throws Exception {
 		Application app = getAPI().getApp(1);
 
 		Assert.assertEquals(app.getId(), 1);
