@@ -109,8 +109,7 @@ public class FileAPI extends BaseAPI {
      * Returns the file with the given id
      */
     public File getFile(int fileId) {
-        return getResourceFactory().getApiResource("/file/" + fileId).get(
-                File.class);
+        return getResourceFactory().getApiResource("/file/" + fileId).get(File.class);
     }
 
     /**

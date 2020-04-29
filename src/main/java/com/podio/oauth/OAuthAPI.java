@@ -23,8 +23,7 @@ public class OAuthAPI extends BaseAPI {
         parameters.add("grant_type", userCredentials.getType());
         userCredentials.addParameters(parameters);
 
-        var resource = getResourceFactory().getApiResource(
-                "/oauth/token", false, new HashMap<String, String>());
+        var resource = getResourceFactory().getApiResource("/oauth/token", false);
         String cred = clientCredentials.getClientId() + ":" + clientCredentials.getClientSecret();
         resource.header(HttpHeaders.AUTHORIZATION, "Basic " + Base64.getEncoder().encodeToString(cred.getBytes(StandardCharsets.UTF_8)));
         return resource.post(Entity.form(parameters), OAuthToken.class);

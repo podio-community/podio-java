@@ -16,6 +16,8 @@ import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.message.GZipEncoder;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.HttpHeaders;
@@ -33,6 +35,8 @@ import java.util.concurrent.TimeUnit;
  */
 public final class ResourceFactory {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ResourceFactory.class);
+
     private final WebTarget apiResource;
     private final WebTarget fileResource;
 
@@ -48,23 +52,13 @@ public final class ResourceFactory {
                            boolean ssl, boolean dryRun,
                            OAuthClientCredentials clientCredentials,
                            OAuthUserCredentials userCredentials) {
+        this(createDefaultClient(dryRun), apiHostname, fileHostname, port, ssl, clientCredentials, userCredentials);
+    }
 
-        ClientBuilder clientBuilder = ClientBuilder.newBuilder();
-        if (dryRun) {
-            clientBuilder.register(DryRunFilter.class);
-        }
-        Client client = clientBuilder
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .readTimeout(100, TimeUnit.SECONDS)
-                .register(MultiPartFeature.class)
-                .register(GZipEncoder.class)
-                .register(EncodingFilter.class)
-                .register(ExceptionFilter.class)
-                .register(getJsonProvider())
-                .register(RateLimitFilter.class)
-                .register((ClientRequestFilter) requestContext -> requestContext.getHeaders().putSingle(HttpHeaders.USER_AGENT, "Podio Java API Client"))
-                .build();
-
+    public ResourceFactory(Client client, String apiHostname, String fileHostname, int port,
+                           boolean ssl,
+                           OAuthClientCredentials clientCredentials,
+                           OAuthUserCredentials userCredentials) {
         this.apiResource = client.target(getURI(apiHostname, port, ssl));
         this.fileResource = client.target(getURI(fileHostname, port, ssl));
 
@@ -80,7 +74,27 @@ public final class ResourceFactory {
         }
     }
 
-    private JacksonJsonProvider getJsonProvider() {
+    private static Client createDefaultClient(boolean dryRun) {
+        ClientBuilder clientBuilder = ClientBuilder.newBuilder();
+        if (dryRun) {
+            clientBuilder.register(DryRunFilter.class);
+        }
+        return clientBuilder
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(100, TimeUnit.SECONDS)
+                .register(MultiPartFeature.class)
+                .register(GZipEncoder.class)
+                .register(EncodingFilter.class)
+                .register(ExceptionFilter.class)
+                .register(getJsonProvider())
+                .register(RateLimitFilter.class)
+                .register((ClientRequestFilter) requestContext -> requestContext.getHeaders().putSingle(HttpHeaders.USER_AGENT, "Podio Java API Client"))
+                .register((ClientRequestFilter) requestContext -> LOG.debug("request {} {}", requestContext.getMethod(), requestContext.getUri()))
+                .register((ClientResponseFilter) (requestContext, responseContext) -> LOG.debug("response {} {}: {}", requestContext.getMethod(), requestContext.getUri(), responseContext.getStatusInfo()))
+                .build();
+    }
+
+    private static JacksonJsonProvider getJsonProvider() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(Feature.FAIL_ON_UNKNOWN_PROPERTIES);
         mapper.disable(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS);

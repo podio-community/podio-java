@@ -29,8 +29,7 @@ public class AuthProvider {
 
 	private void updateToken(OAuthUserCredentials credentials) {
 		this.token = oauthAPI.getToken(clientCredentials, credentials);
-		this.expireTime = System.currentTimeMillis() + token.getExpiresIn()
-				* 1000;
+		this.expireTime = System.currentTimeMillis() + token.getExpiresIn() * 1000;
 	}
 
 	private void newToken() {
