@@ -1,6 +1,7 @@
 Podio Java API Client
 ---------------------
 
+![CI](https://github.com/podio-community/podio-java/workflows/Java%20CI%20with%20Maven/badge.svg)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.podio-community/podio-api-client/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.podio-community/podio-api-client)
 
 This is a community maintained fork of the Java client for the [Podio](http://podio.com) API. 
