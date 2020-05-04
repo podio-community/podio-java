@@ -17,7 +17,7 @@ public class APIApplicationException extends WebApplicationException {
     private final Map<String, String> parameters;
 
     public APIApplicationException(Response.StatusType status, String error, String description, Map<String, String> parameters) {
-        super(status.toEnum());
+        super(status != null && status.toEnum() != null ? status.toEnum() : Response.Status.EXPECTATION_FAILED);
         this.status = status;
         this.error = error;
         this.description = description;
