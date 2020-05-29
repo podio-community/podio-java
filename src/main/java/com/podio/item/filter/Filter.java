@@ -6,7 +6,7 @@ public abstract class Filter<VALUES> {
 
     private final String key;
 
-    Filter(String key) {
+    public Filter(String key) {
         this.key = key;
     }
 
