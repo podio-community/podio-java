@@ -94,7 +94,7 @@ public final class ResourceFactory {
                 .build();
     }
 
-    private static JacksonJsonProvider getJsonProvider() {
+    public static JacksonJsonProvider getJsonProvider() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(Feature.FAIL_ON_UNKNOWN_PROPERTIES);
         mapper.disable(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS);
