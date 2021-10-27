@@ -1,28 +1,27 @@
 package com.podio.item;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
-import org.joda.time.LocalDate;
-import org.junit.Assert;
-import org.junit.Test;
-
 import com.podio.APIFactoryProvider;
 import com.podio.app.ApplicationFieldType;
 import com.podio.common.AuthorizationEntityType;
 import com.podio.common.Reference;
 import com.podio.common.ReferenceType;
-import com.podio.filter.CreatedByFilterBy;
-import com.podio.filter.CreatedOnFilterBy;
-import com.podio.filter.CreatedViaFilterBy;
-import com.podio.filter.FilterByValue;
-import com.podio.filter.PodioDateInterval;
+import com.podio.filter.*;
 import com.podio.rating.RatingType;
 import com.podio.rating.RatingValue;
+import org.joda.time.LocalDate;
+import org.junit.Assert;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 public class ItemAPITestIT {
+
+	private static final Logger LOG = LoggerFactory.getLogger(ItemAPITestIT.class);
 
 	private ItemAPI getAPI() {
 		return APIFactoryProvider.getDefault().getAPI(ItemAPI.class);
@@ -89,15 +88,22 @@ public class ItemAPITestIT {
 	public void updateItemFieldValues() {
 		getAPI().updateItemFieldValues(
 				1,
-				1,
-				Collections.singletonList(Collections
-						.<String, String> singletonMap("value", "no")), false, false);
+				"1",
+				Collections.singletonList(Collections.singletonMap("value", "no")), false, false);
 	}
 
 	@Test
 	public void deleteItem() {
 		getAPI().deleteItem(1, false);
 	}
+
+    @Test
+    public void getAndLogItem() {
+        var item = getAPI().getItem(1902411741);
+        LOG.info("item: {}", item);
+        LOG.info("item.getFields(): {}", item.getFields());
+        item.getFields().forEach(f -> LOG.info("item.getFields()[id={}].getValues(): {}", f.getId(), f.getValues()));
+    }
 
 	@Test
 	public void getItem() {

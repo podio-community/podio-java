@@ -89,8 +89,8 @@ public final class ResourceFactory {
                 .register(getJsonProvider())
                 .register(RateLimitFilter.class)
                 .register((ClientRequestFilter) requestContext -> requestContext.getHeaders().putSingle(HttpHeaders.USER_AGENT, "Podio Java API Client"))
-                .register((ClientRequestFilter) requestContext -> LOG.debug("request {} {}", requestContext.getMethod(), requestContext.getUri()))
-                .register((ClientResponseFilter) (requestContext, responseContext) -> LOG.debug("response {} {}: {}", requestContext.getMethod(), requestContext.getUri(), responseContext.getStatusInfo()))
+                .register((ClientRequestFilter) requestContext -> LOG.debug("request {} {} {}", requestContext.getMethod(), requestContext.getUri(), requestContext.getEntity()))
+                .register((ClientResponseFilter) (requestContext, responseContext) -> LOG.debug("response {} {}: {} {}", requestContext.getMethod(), requestContext.getUri(), responseContext.getStatus(), responseContext.getStatusInfo() != null ? responseContext.getStatusInfo().getReasonPhrase() : null))
                 .build();
     }
 

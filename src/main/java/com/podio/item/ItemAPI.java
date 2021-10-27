@@ -34,7 +34,7 @@ public class ItemAPI extends BaseAPI {
 
 	/**
 	 * Adds a new item to the given app.
-	 * 
+	 *
 	 * @param appId
 	 *            The id of the app the item should be added to
 	 * @param create
@@ -50,7 +50,7 @@ public class ItemAPI extends BaseAPI {
 
 	/**
 	 * Gets the item with the given id
-	 * 
+	 *
 	 * @param itemId
 	 *            The id of the item
 	 * @return The item with given id
@@ -64,7 +64,7 @@ public class ItemAPI extends BaseAPI {
 	 * Updates the entire item. Only fields which have values specified will be
 	 * updated. To delete the contents of a field, pass an empty array for the
 	 * value.
-	 * 
+	 *
 	 * @param itemId
 	 *            The id of the item to update
 	 * @param update
@@ -84,7 +84,7 @@ public class ItemAPI extends BaseAPI {
 
 	/**
 	 * Updates all the values for an item
-	 * 
+	 *
 	 * @param itemId
 	 *            The id of the item
 	 * @param values
@@ -105,32 +105,32 @@ public class ItemAPI extends BaseAPI {
 
 	/**
 	 * Update the item values for a specific field.
-	 * 
+	 *
 	 * @param itemId
 	 *            The id of the item
-	 * @param fieldId
+	 * @param fieldOrExternalId
 	 *            The id of the field
 	 * @param values
-	 *            The new values for the field
+	 *            The new values for the field. To update a category field use `List.of(option_id_1, option_id_2, ..)`.
 	 * @param silent
 	 *            True if the update should be silent, false otherwise
 	 * @param hook
 	 *            True if hooks should be executed for the change, false otherwise
 	 */
-	public void updateItemFieldValues(int itemId, int fieldId,
-			List<Map<String, String>> values, boolean silent, boolean hook) {
+	public void updateItemFieldValues(int itemId, String fieldOrExternalId,
+			List<?> values, boolean silent, boolean hook) {
 		Map<String, String> queryParams = new HashMap<>();
 		queryParams.put("silent", silent ? "1" : "0");
 		queryParams.put("hook", hook ? "1" : "0");
 		getResourceFactory()
-				.getApiResource("/item/" + itemId + "/value/" + fieldId, queryParams)
+				.getApiResource("/item/" + itemId + "/value/" + fieldOrExternalId, queryParams)
 				.put(Entity.entity(values, MediaType.APPLICATION_JSON_TYPE));
 	}
 
 	/**
 	 * Deletes an item and removes it from all views. The data can no longer be
 	 * retrieved.
-	 * 
+	 *
 	 * @param itemId
 	 *            The id of the item
 	 * @param silent
@@ -143,7 +143,7 @@ public class ItemAPI extends BaseAPI {
 
 	/**
 	 * Returns the values for a specified field on an item
-	 * 
+	 *
 	 * @param itemId
 	 *            The id of the item
 	 * @param fieldId
@@ -160,7 +160,7 @@ public class ItemAPI extends BaseAPI {
 	/**
 	 * Returns all the values for an item, with the additional data provided by
 	 * the get item operation.
-	 * 
+	 *
 	 * @param itemId
 	 *            The id of the item
 	 * @return The values on the item
@@ -175,7 +175,7 @@ public class ItemAPI extends BaseAPI {
 	/**
 	 * Used to find possible items for a given application field. It searches
 	 * the relevant items for the title given.
-	 * 
+	 *
 	 * @param fieldId
 	 *            The id of app reference field to search for
 	 * @param text
@@ -206,7 +206,7 @@ public class ItemAPI extends BaseAPI {
 	/**
 	 * Returns the items that have a reference to the given item. The references
 	 * are grouped by app. Both the apps and the items are sorted by title.
-	 * 
+	 *
 	 * @param itemId
 	 *            The id of the item
 	 * @return The references to the given item
@@ -220,7 +220,7 @@ public class ItemAPI extends BaseAPI {
 
 	/**
 	 * Returns the data about the specific revision on an item
-	 * 
+	 *
 	 * @param itemId
 	 *            The id of the item
 	 * @param revisionId
@@ -236,7 +236,7 @@ public class ItemAPI extends BaseAPI {
 
 	/**
 	 * Returns the difference in fields values between the two revisions.
-	 * 
+	 *
 	 * @param itemId
 	 *            The id of the item
 	 * @param revisionFrom
@@ -256,7 +256,7 @@ public class ItemAPI extends BaseAPI {
 
 	/**
 	 * Returns all the revisions that have been made to an item
-	 * 
+	 *
 	 * @param itemId
 	 *            The id of the item
 	 * @return All the revisions
@@ -275,7 +275,7 @@ public class ItemAPI extends BaseAPI {
 
 	/**
 	 * Returns the items on app matching the given filters.
-	 * 
+	 *
 	 * @param appId
 	 *            The id of the app
 	 * @param limit
@@ -318,7 +318,7 @@ public class ItemAPI extends BaseAPI {
 
 	/**
 	 * Utility method to get items matching an external id
-	 * 
+	 *
 	 * @param appId
 	 *            The id of the app
 	 * @param externalId
