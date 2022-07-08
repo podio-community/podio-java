@@ -197,7 +197,7 @@ public class StreamAPI extends BaseAPI {
 	 *            to no limit
 	 * @return The list of stream objects
 	 */
-	public List<StreamObjectV2> getAppStream(int appId, Integer limit,
+	public List<StreamObjectV2> getAppStream(long appId, Integer limit,
 											 Integer offset, DateTime dateFrom, DateTime dateTo) {
 		return getStreamV2("/stream/app/" + appId + "/", limit, offset, dateFrom,
 				dateTo);

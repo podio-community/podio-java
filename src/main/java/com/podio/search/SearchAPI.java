@@ -29,7 +29,7 @@ public class SearchAPI extends BaseAPI {
 	 * @param searchFields The list of fields to search in. Can f.ex. be used to limit the search to the "title" field.
 	 * @return All items
 	 */
-	public SearchInAppResponse searchInApp(int appId, String query, Boolean counts,
+	public SearchInAppResponse searchInApp(long appId, String query, Boolean counts,
 										   Boolean highlights, Integer limit, Integer offset, ReferenceTypeSearchInApp refType,
 										   String searchFields) {
 		Map<String, String> queryParams = new HashMap<>();

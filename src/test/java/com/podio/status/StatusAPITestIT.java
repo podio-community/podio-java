@@ -18,7 +18,7 @@ public class StatusAPITestIT {
 
 	@Test
 	public void createStatus() {
-		int statusId = getAPI().createStatus(
+		long statusId = getAPI().createStatus(
 				1,
 				new StatusCreate("Hello from Java", Collections
 						.<Integer> emptyList(), Collections

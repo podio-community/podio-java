@@ -59,7 +59,7 @@ public class AppAPITestIT {
 
 	@Test
 	public void addApp() {
-		int appId = getAPI().addApp(
+		long appId = getAPI().addApp(
 				new ApplicationCreate(1, new ApplicationConfigurationCreate(
 						"Tests", "Test", "Description", "Usage", "ExternalId",
 						"23.png", true, ApplicationViewType.BADGE, true, true,
@@ -110,7 +110,7 @@ public class AppAPITestIT {
 
 	@Test
 	public void addField() {
-		int fieldId = getAPI().addField(
+		long fieldId = getAPI().addField(
 				1,
 				new ApplicationFieldCreate(ApplicationFieldType.TEXT,
 						new ApplicationFieldConfiguration("Description",
@@ -137,7 +137,7 @@ public class AppAPITestIT {
 
 	@Test
 	public void installApp() {
-		int appId = getAPI().install(1, 1);
+		long appId = getAPI().install(1, 1);
 		Assert.assertTrue(appId > 1);
 
 	}

@@ -6,7 +6,7 @@ import com.podio.common.CreatedBase;
 
 public class Hook extends CreatedBase {
 
-	private int id;
+	private long id;
 
 	private HookStatus status;
 
@@ -14,12 +14,12 @@ public class Hook extends CreatedBase {
 
 	private String url;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("hook_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

@@ -13,7 +13,7 @@ public final class APIFactoryProvider {
 		return new APIFactory(ResourceFactoryProvider.getUser(userId));
 	}
 
-	public static APIFactory getApp(int appId) {
+	public static APIFactory getApp(long appId) {
 		return new APIFactory(ResourceFactoryProvider.getApp(appId));
 	}
 }

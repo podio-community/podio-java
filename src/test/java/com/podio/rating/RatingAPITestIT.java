@@ -15,7 +15,7 @@ public class RatingAPITestIT {
 
 	@Test
 	public void createRating() {
-		int ratingId = getAPI().createRating(
+		long ratingId = getAPI().createRating(
 				new Reference(ReferenceType.STATUS, 1), RatingType.LIKE,
 				RatingValue.LIKE);
 

@@ -47,7 +47,7 @@ public class FileAPI extends BaseAPI {
     /**
      * Uploads the file to the API
      */
-    public int uploadFile(String name, java.io.File file) {
+    public long uploadFile(String name, java.io.File file) {
         FileDataBodyPart filePart = new FileDataBodyPart("source", file);
         // Work around for bug in cherrypy
         FormDataContentDisposition.FormDataContentDispositionBuilder builder = FormDataContentDisposition
@@ -67,11 +67,11 @@ public class FileAPI extends BaseAPI {
         return resource.getId();
     }
 
-    public Integer uploadImage(URL url) throws IOException {
+    public Long uploadImage(URL url) throws IOException {
         return uploadImage(url, null);
     }
 
-    public int uploadImage(URL url, String name) throws IOException {
+    public long uploadImage(URL url, String name) throws IOException {
         java.io.File file = readURL(url);
         try {
             String path = url.getPath();
@@ -136,7 +136,7 @@ public class FileAPI extends BaseAPI {
      * @param offset The offset to use when returning files to be used for
      *               pagination. Defaults to 0 (no offset).
      */
-    public List<File> getOnApp(int appId, Integer limit, Integer offset) {
+    public List<File> getOnApp(long appId, Integer limit, Integer offset) {
         Map<String, String> queryParams = new HashMap<>();
         if (limit != null) {
             queryParams.put("limit", limit.toString());

@@ -11,15 +11,15 @@ public class ApplicationCreateResponse implements Serializable {
 	/**
 	 * The id of the created app
 	 */
-	private int id;
+	private long id;
 
 	@JsonProperty("app_id")
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("app_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 }

@@ -4,17 +4,17 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class UserMini {
 
-	private int id;
+	private long id;
 
 	private String mail;
 
 	@JsonProperty("user_id")
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("user_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

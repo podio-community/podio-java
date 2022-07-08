@@ -8,7 +8,7 @@ public class ApplicationInstall implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private int spaceId;
+	private long spaceId;
 
 	public ApplicationInstall() {
 		super();
@@ -20,12 +20,12 @@ public class ApplicationInstall implements Serializable {
 	}
 
 	@JsonProperty("space_id")
-	public int getSpaceId() {
+	public long getSpaceId() {
 		return spaceId;
 	}
 
 	@JsonProperty("space_id")
-	public void setSpaceId(int spaceId) {
+	public void setSpaceId(long spaceId) {
 		this.spaceId = spaceId;
 	}
 

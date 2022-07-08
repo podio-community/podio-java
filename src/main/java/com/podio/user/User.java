@@ -9,7 +9,7 @@ import org.joda.time.DateTime;
 
 public class User {
 
-	private int id;
+	private long id;
 
 	private String mail;
 
@@ -32,12 +32,12 @@ public class User {
 	}
 
 	@JsonProperty("user_id")
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("user_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

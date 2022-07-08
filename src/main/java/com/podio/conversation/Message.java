@@ -10,7 +10,7 @@ public class Message {
 	/**
 	 * The id of the message
 	 */
-	private int id;
+	private long id;
 
 	/**
 	 * The text of the message
@@ -28,12 +28,12 @@ public class Message {
 	private ProfileMini createdBy;
 
 	@JsonProperty("message_id")
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("message_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

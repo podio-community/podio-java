@@ -15,7 +15,7 @@ public class TagReference {
 	/**
 	 * The id of the object
 	 */
-	private int id;
+	private long id;
 
 	/**
 	 * The title of the object
@@ -41,12 +41,12 @@ public class TagReference {
 		this.type = type;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

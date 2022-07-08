@@ -30,7 +30,7 @@ public class StatusAPI extends BaseAPI {
 	 *            The data for the new status message
 	 * @return The id of the newly created status message
 	 */
-	public int createStatus(int spaceId, StatusCreate status) {
+	public long createStatus(int spaceId, StatusCreate status) {
 		return getResourceFactory()
 				.getApiResource("/status/space/" + spaceId + "/")
 				.post(Entity.entity(status, MediaType.APPLICATION_JSON_TYPE), StatusCreateResponse.class).getId();

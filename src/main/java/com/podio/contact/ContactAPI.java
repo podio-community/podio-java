@@ -32,7 +32,7 @@ public class ContactAPI extends BaseAPI {
      * @param silent  True if the create should be silent, false otherwise
      * @return The id of the newly created contact
      */
-    public int addSpaceContact(int spaceId, ContactCreate create, boolean silent) {
+    public long addSpaceContact(int spaceId, ContactCreate create, boolean silent) {
         return getResourceFactory().getApiResource("/contact/space/" + spaceId + "/", Collections.singletonMap("silent", silent ? "1" : "0"))
                 .post(Entity.entity(create, MediaType.APPLICATION_JSON_TYPE), ContactCreateResponse.class).getId();
     }

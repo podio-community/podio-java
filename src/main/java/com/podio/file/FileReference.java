@@ -14,7 +14,7 @@ public class FileReference extends Reference {
 		super();
 	}
 
-	public FileReference(ReferenceType type, int id, String title) {
+	public FileReference(ReferenceType type, long id, String title) {
 		super(type, id);
 		this.title = title;
 	}

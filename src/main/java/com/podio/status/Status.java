@@ -9,19 +9,19 @@ import com.podio.common.CreatedBase;
  */
 public class Status extends CreatedBase {
 
-	private int statusId;
+	private long statusId;
 
 	private String value;
 
 	/**
 	 * @return The id of the status
 	 */
-	public int getStatusId() {
+	public long getStatusId() {
 		return statusId;
 	}
 
 	@JsonProperty("status_id")
-	public void setStatusId(int statusId) {
+	public void setStatusId(long statusId) {
 		this.statusId = statusId;
 	}
 

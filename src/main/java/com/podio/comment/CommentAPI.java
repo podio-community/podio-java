@@ -64,7 +64,7 @@ public class CommentAPI extends BaseAPI {
 	 * @param silent
 	 *            True if the update should be silent, false otherwise
 	 */
-	public int addComment(Reference reference, CommentCreate comment,
+	public long addComment(Reference reference, CommentCreate comment,
 			boolean silent, boolean hook) {
 		Map<String, String> queryParams = new HashMap<>();
 		queryParams.put("silent", silent ? "1" : "0");

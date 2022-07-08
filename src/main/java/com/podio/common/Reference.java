@@ -4,13 +4,13 @@ public class Reference {
 
 	private ReferenceType type;
 
-	private int id;
+	private long id;
 
 	public Reference() {
 		super();
 	}
 
-	public Reference(ReferenceType type, int id) {
+	public Reference(ReferenceType type, long id) {
 		super();
 		this.type = type;
 		this.id = id;
@@ -41,18 +41,18 @@ public class Reference {
 		this.type = type;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
 	public static Reference parse(String value) {
 		String[] split = value.split(":");
 		ReferenceType type = ReferenceType.getByName(split[0]);
-		int id = Integer.parseInt(split[1]);
+		long id = Integer.parseInt(split[1]);
 
 		return new Reference(type, id);
 	}

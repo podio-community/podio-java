@@ -14,7 +14,7 @@ public class Application implements Serializable {
 	/**
 	 * The id of the app
 	 */
-	private int id;
+	private long id;
 
 	/**
 	 * The original app that this app was a copy of
@@ -29,12 +29,12 @@ public class Application implements Serializable {
 	/**
 	 * The id of the space on which the app is placed
 	 */
-	private int spaceId;
+	private long spaceId;
 
 	/**
 	 * The owner of the app, which has special access to the app
 	 */
-	private int ownerId;
+	private long ownerId;
 
 	/**
 	 * The configuration of the app
@@ -44,12 +44,12 @@ public class Application implements Serializable {
 	private List<ApplicationField> fields;
 
 	@JsonProperty("app_id")
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("app_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -72,22 +72,22 @@ public class Application implements Serializable {
 	}
 
 	@JsonProperty("space_id")
-	public int getSpaceId() {
+	public long getSpaceId() {
 		return spaceId;
 	}
 
 	@JsonProperty("space_id")
-	public void setSpaceId(int spaceId) {
+	public void setSpaceId(long spaceId) {
 		this.spaceId = spaceId;
 	}
 
 	@JsonProperty("owner_id")
-	public int getOwnerId() {
+	public long getOwnerId() {
 		return ownerId;
 	}
 
 	@JsonProperty("owner_id")
-	public void setOwnerId(int ownerId) {
+	public void setOwnerId(long ownerId) {
 		this.ownerId = ownerId;
 	}
 

@@ -7,19 +7,19 @@ public class OrganizationCreateResponse {
 	/**
 	 * The id of the newly created organization
 	 */
-	private int id;
+	private long id;
 
 	/**
 	 * The full URL of the organization
 	 */
 	private String url;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("org_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

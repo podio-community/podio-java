@@ -8,7 +8,7 @@ public class OrganizationStatistics {
 	/**
 	 * The id of the org
 	 */
-	private int id;
+	private long id;
 
 	/**
 	 * number of all items in all apps in all spaces
@@ -40,12 +40,12 @@ public class OrganizationStatistics {
 	 */
 	private int usersCount;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("org_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

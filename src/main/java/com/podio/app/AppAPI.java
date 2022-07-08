@@ -29,7 +29,7 @@ public class AppAPI extends BaseAPI {
      * @param appId The id of the app to be returned
      * @return The full definition of the app
      */
-    public Application getApp(int appId) {
+    public Application getApp(long appId) {
         return getResourceFactory().getApiResource("/app/" + appId).get(
                 Application.class);
     }
@@ -71,7 +71,7 @@ public class AppAPI extends BaseAPI {
      * @param app The definition for the new app
      * @return The id of the newly created app
      */
-    public int addApp(ApplicationCreate app) {
+    public long addApp(ApplicationCreate app) {
         return getResourceFactory().getApiResource("/app/")
                 .post(Entity.entity(app, MediaType.APPLICATION_JSON_TYPE), ApplicationCreateResponse.class).getId();
     }
@@ -89,7 +89,7 @@ public class AppAPI extends BaseAPI {
      * @param appId The id of the app to be updated
      * @param app   The updated app definition
      */
-    public void updateApp(int appId, ApplicationUpdate app) {
+    public void updateApp(long appId, ApplicationUpdate app) {
         getResourceFactory().getApiResource("/app/" + appId)
                 .put(Entity.entity(app, MediaType.APPLICATION_JSON));
     }
@@ -101,7 +101,7 @@ public class AppAPI extends BaseAPI {
      * @param field The definition of the new field
      * @return The id of the newly created field
      */
-    public int addField(int appId, ApplicationFieldCreate field) {
+    public long addField(long appId, ApplicationFieldCreate field) {
         return getResourceFactory().getApiResource("/app/" + appId + "/field/")
                 .post(Entity.entity(field, MediaType.APPLICATION_JSON_TYPE), ApplicationFieldCreateResponse.class).getId();
     }
@@ -114,7 +114,7 @@ public class AppAPI extends BaseAPI {
      * @param fieldId       The id of the field to be updated
      * @param configuration The new configuration of the field
      */
-    public void updateField(int appId, int fieldId,
+    public void updateField(long appId, int fieldId,
                             ApplicationFieldConfiguration configuration) {
         getResourceFactory()
                 .getApiResource("/app/" + appId + "/field/" + fieldId)
@@ -128,7 +128,7 @@ public class AppAPI extends BaseAPI {
      * @param fieldId The id of the field to be returned
      * @return The definition and current configuration of the requested field
      */
-    public ApplicationField getField(int appId, int fieldId) {
+    public ApplicationField getField(long appId, int fieldId) {
         return getResourceFactory().getApiResource(
                 "/app/" + appId + "/field/" + fieldId).get(
                 ApplicationField.class);
@@ -141,7 +141,7 @@ public class AppAPI extends BaseAPI {
      * @param externalId The id of the field to be returned
      * @return The definition and current configuration of the requested field
      */
-    public ApplicationField getField(int appId, String externalId) {
+    public ApplicationField getField(long appId, String externalId) {
         return getResourceFactory().getApiResource(
                 "/app/" + appId + "/field/" + externalId).get(
                 ApplicationField.class);
@@ -155,7 +155,7 @@ public class AppAPI extends BaseAPI {
      * @param appId   The id of the app the field is on
      * @param fieldId The id of the field that should be deleted
      */
-    public void deleteField(int appId, int fieldId) {
+    public void deleteField(long appId, int fieldId) {
         getResourceFactory().getApiResource(
                 "/app/" + appId + "/field/" + fieldId).delete();
     }
@@ -167,7 +167,7 @@ public class AppAPI extends BaseAPI {
      * @param spaceId The id of the space the app should be installed o n
      * @return The id of the newly installed app
      */
-    public int install(int appId, int spaceId) {
+    public long install(long appId, int spaceId) {
         return getResourceFactory()
                 .getApiResource("/app/" + appId + "/install")
                 .post(Entity.entity(new ApplicationInstall(spaceId),
@@ -203,7 +203,7 @@ public class AppAPI extends BaseAPI {
      * @param appId The id of the app the dependecies should be returned for
      * @return The applications that the given app depends on
      */
-    public Dependencies getDependencies(int appId) {
+    public Dependencies getDependencies(long appId) {
         return getResourceFactory().getApiResource(
                 "/app/" + appId + "/dependencies/").get(Dependencies.class);
     }
@@ -214,7 +214,7 @@ public class AppAPI extends BaseAPI {
      *
      * @param appId The id of the app to deactivate
      */
-    public void deactivateApp(int appId) {
+    public void deactivateApp(long appId) {
         getResourceFactory().getApiResource("/app/" + appId + "/deactivate")
                 .post(Entity.entity(new Empty(), MediaType.APPLICATION_JSON_TYPE));
     }
@@ -225,7 +225,7 @@ public class AppAPI extends BaseAPI {
      *
      * @param appId The id of the app to activate
      */
-    public void activateApp(int appId) {
+    public void activateApp(long appId) {
         getResourceFactory().getApiResource("/app/" + appId + "/activate")
                 .post(Entity.entity(new Empty(), MediaType.APPLICATION_JSON_TYPE));
     }
@@ -236,7 +236,7 @@ public class AppAPI extends BaseAPI {
      *
      * @param appId The id of the app to delete
      */
-    public void deleteApp(int appId) {
+    public void deleteApp(long appId) {
         getResourceFactory().getApiResource("/app/" + appId).delete();
     }
 }

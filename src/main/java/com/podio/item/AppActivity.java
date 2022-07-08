@@ -22,7 +22,7 @@ public class AppActivity {
 	/**
 	 * The id of the item the activity was on
 	 */
-	private int itemId;
+	private long itemId;
 
 	/**
 	 * The title of the item
@@ -56,12 +56,12 @@ public class AppActivity {
 		this.createdOn = createdOn;
 	}
 
-	public int getItemId() {
+	public long getItemId() {
 		return itemId;
 	}
 
 	@JsonProperty("item_id")
-	public void setItemId(int itemId) {
+	public void setItemId(long itemId) {
 		this.itemId = itemId;
 	}
 

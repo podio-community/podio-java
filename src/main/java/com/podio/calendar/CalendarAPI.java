@@ -55,7 +55,7 @@ public class CalendarAPI extends BaseAPI {
      *                 all types of events.
      * @return The events in the calendar
      */
-    public List<Event> getApp(int appId, LocalDate dateFrom, LocalDate dateTo,
+    public List<Event> getApp(long appId, LocalDate dateFrom, LocalDate dateTo,
                               ReferenceType... types) {
         return getCalendar("app/" + appId, dateFrom, dateTo, null, types);
     }

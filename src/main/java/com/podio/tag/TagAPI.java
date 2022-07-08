@@ -98,7 +98,7 @@ public class TagAPI extends BaseAPI {
 	 *            The id of the app to return tags from *
 	 * @return The list of tags with their count
 	 */
-	public List<TagCount> getTagsOnApp(int appId) {
+	public List<TagCount> getTagsOnApp(long appId) {
 		return getResourceFactory().getApiResource("/tag/app/" + appId + "/")
 				.get(new GenericType<List<TagCount>>() { });
 	}
@@ -114,7 +114,7 @@ public class TagAPI extends BaseAPI {
 	 *            returned and/or text of tag to search for
 	 * @return The list of tags with their count
 	 */
-	public List<TagCount> getTagsOnApp(int appId, Map<String, String> options) {
+	public List<TagCount> getTagsOnApp(long appId, Map<String, String> options) {
 		return getResourceFactory()
 				.getApiResource("/tag/app/" + appId + "/", options)
 				.get(new GenericType<List<TagCount>>() { });
@@ -132,7 +132,7 @@ public class TagAPI extends BaseAPI {
 	 *            text of tag to search for
 	 * @return The list of tags with their count
 	 */
-	public List<TagCount> getTagsOnApp(int appId, int limit, String text) {
+	public List<TagCount> getTagsOnApp(long appId, int limit, String text) {
 		Map<String, String> params = new HashMap<>();
 		params.put("limit", Integer.toString(limit));
 		if ((text != null) && (!text.isEmpty())) {
@@ -264,7 +264,7 @@ public class TagAPI extends BaseAPI {
 	 *            The tag to search for
 	 * @return The list of objects in the app that have the given tag
 	 */
-	public List<TagReference> getTagsOnAppWithText(int appId, String text) {
+	public List<TagReference> getTagsOnAppWithText(long appId, String text) {
 		return getResourceFactory()
 				.getApiResource("/tag/app/" + appId + "/search/", Collections.singletonMap("text", text))
 				.get(new GenericType<List<TagReference>>() {

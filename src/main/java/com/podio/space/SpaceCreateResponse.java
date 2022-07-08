@@ -7,19 +7,19 @@ public class SpaceCreateResponse {
 	/**
 	 * The id of the newly created space
 	 */
-	private int id;
+	private long id;
 
 	/**
 	 * The full URL of the new space
 	 */
 	private String url;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("space_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

@@ -17,7 +17,7 @@ public class StreamActivity extends CreatedBase {
 	/**
 	 * The id of the object
 	 */
-	private int id;
+	private long id;
 
 	/**
 	 * The type of activity
@@ -37,11 +37,11 @@ public class StreamActivity extends CreatedBase {
 		this.type = type;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

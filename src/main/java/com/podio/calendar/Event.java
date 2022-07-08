@@ -21,7 +21,7 @@ public class Event {
 	/**
 	 * The id of the entry
 	 */
-	private int refId;
+	private long refId;
 
 	/**
 	 * The title of the entry
@@ -93,11 +93,11 @@ public class Event {
 	}
 
 	@JsonProperty("ref_id")
-	public int getRefId() {
+	public long getRefId() {
 		return refId;
 	}
 
-	public void setRefId(int refId) {
+	public void setRefId(long refId) {
 		this.refId = refId;
 	}
 
