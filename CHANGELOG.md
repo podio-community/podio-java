@@ -1,5 +1,5 @@
-# 1.1.1 (2022-07-08)
-* Changed all ids type from int to long as a result of obtaining an item id greater than the int range
+# 2.0.0 (2022-07-08)
+* Changed all ids type from `int` to `long` as a result of obtaining an item id greater than the int range
 
 # 1.1.0 (2021-10-27)
 * Bugfix: Allow any list for field value updates for category fields (see #4).
