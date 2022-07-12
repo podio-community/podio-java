@@ -1,6 +1,6 @@
 package com.podio.app;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ApplicationField extends ApplicationFieldCreate {
 

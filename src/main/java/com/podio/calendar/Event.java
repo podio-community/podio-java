@@ -1,6 +1,6 @@
 package com.podio.calendar;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
 
 import com.podio.app.Application;

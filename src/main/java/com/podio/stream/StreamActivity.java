@@ -2,7 +2,7 @@ package com.podio.stream;
 
 import java.util.HashMap;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.podio.common.CreatedBase;
 import com.podio.common.ReferenceType;

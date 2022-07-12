@@ -3,7 +3,7 @@ package com.podio.comment;
 import java.util.Collections;
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CommentCreate {
 

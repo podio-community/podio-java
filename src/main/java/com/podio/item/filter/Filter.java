@@ -1,6 +1,6 @@
 package com.podio.item.filter;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public abstract class Filter<VALUES> {
 

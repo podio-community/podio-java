@@ -2,7 +2,7 @@ package com.podio.org;
 
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.podio.space.SpaceMini;
 

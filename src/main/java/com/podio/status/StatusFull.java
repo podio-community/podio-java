@@ -1,16 +1,15 @@
 package com.podio.status;
 
-import java.util.List;
-import java.util.Map;
-
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.podio.comment.Comment;
 import com.podio.file.File;
 import com.podio.rating.RatingType;
 import com.podio.rating.RatingTypeKeyDeserializer;
 import com.podio.rating.RatingValuesMap;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * A status message posted by a user to a space

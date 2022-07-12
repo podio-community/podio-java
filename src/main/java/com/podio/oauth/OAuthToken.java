@@ -1,6 +1,6 @@
 package com.podio.oauth;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public final class OAuthToken {
 

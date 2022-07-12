@@ -4,7 +4,7 @@ import com.podio.app.Application;
 import com.podio.common.AuthorizationEntity;
 import com.podio.org.Organization;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.podio.space.Space;
 import org.joda.time.DateTime;
 

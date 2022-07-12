@@ -2,7 +2,7 @@ package com.podio.item;
 
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ItemCreate extends ItemUpdate {
 

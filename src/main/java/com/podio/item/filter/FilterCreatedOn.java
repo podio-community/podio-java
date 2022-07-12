@@ -1,6 +1,6 @@
 package com.podio.item.filter;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

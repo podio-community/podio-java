@@ -7,7 +7,6 @@ import com.podio.item.ItemAPI;
 import com.podio.oauth.OAuthClientCredentials;
 import com.podio.oauth.OAuthToken;
 import com.podio.oauth.OAuthUsernameCredentials;
-import org.apache.http.protocol.HTTP;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -20,6 +19,7 @@ import java.util.Collections;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
+import static com.google.common.net.HttpHeaders.CONTENT_TYPE;
 
 public class ResourceFactoryTest {
 
@@ -50,7 +50,7 @@ public class ResourceFactoryTest {
         setupDefaultAuthMock();
         stubFor(get(urlEqualTo("/item/42"))
                 .willReturn(aResponse()
-                        .withHeader(HTTP.CONTENT_TYPE, "application/json")
+                        .withHeader(CONTENT_TYPE, "application/json")
                         .withBody("{\"item_id\": 42, \"title\": \"test title\"}")));
 
         var api = apiFactory.getAPI(ItemAPI.class);
@@ -94,7 +94,7 @@ public class ResourceFactoryTest {
                 .withBasicAuth("test-client-id", "test-client-secret")
                 .willReturn(
                         aResponse()
-                                .withHeader(HTTP.CONTENT_TYPE, "application/json")
+                                .withHeader(CONTENT_TYPE, "application/json")
                                 .withBody(new ObjectMapper().writeValueAsString(authResponse))
                 )
         );
