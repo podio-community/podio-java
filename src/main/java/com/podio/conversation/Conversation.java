@@ -11,7 +11,7 @@ public class Conversation {
 	/**
 	 * The id of the conversation
 	 */
-	private int id;
+	private long id;
 
 	/**
 	 * The subject of the conversation
@@ -24,12 +24,12 @@ public class Conversation {
 	private List<ProfileMini> participants;
 
 	@JsonProperty("conversation_id")
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("conversation_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

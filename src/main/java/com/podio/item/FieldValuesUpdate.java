@@ -11,7 +11,7 @@ public class FieldValuesUpdate {
 	/**
 	 * The id of the field
 	 */
-	private Integer id;
+	private Long id;
 
 	/**
 	 * The external id of the field
@@ -27,19 +27,19 @@ public class FieldValuesUpdate {
 		super();
 	}
 
-	public FieldValuesUpdate(int id, List<Map<String, ?>> values) {
+	public FieldValuesUpdate(long id, List<Map<String, ?>> values) {
 		super();
 		this.id = id;
 		this.values = values;
 	}
 
-	public FieldValuesUpdate(int id, Map<String, ?> value) {
+	public FieldValuesUpdate(long id, Map<String, ?> value) {
 		super();
 		this.id = id;
 		this.values = Collections.<Map<String, ?>> singletonList(value);
 	}
 
-	public FieldValuesUpdate(int id, String subId, Object value) {
+	public FieldValuesUpdate(long id, String subId, Object value) {
 		super();
 		this.id = id;
 		this.values = Collections.<Map<String, ?>> singletonList(Collections
@@ -66,12 +66,12 @@ public class FieldValuesUpdate {
 	}
 
 	@JsonProperty("field_id")
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
 	@JsonProperty("field_id")
-	public void setId(Integer fieldId) {
+	public void setId(Long fieldId) {
 		this.id = fieldId;
 	}
 

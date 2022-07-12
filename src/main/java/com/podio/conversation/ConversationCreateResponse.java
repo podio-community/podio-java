@@ -4,25 +4,25 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class ConversationCreateResponse {
 
-	private int conversationId;
+	private long conversationId;
 
-	private int messageId;
+	private long messageId;
 
-	public int getConversationId() {
+	public long getConversationId() {
 		return conversationId;
 	}
 
 	@JsonProperty("conversation_id")
-	public void setConversationId(int conversationId) {
+	public void setConversationId(long conversationId) {
 		this.conversationId = conversationId;
 	}
 
-	public int getMessageId() {
+	public long getMessageId() {
 		return messageId;
 	}
 
 	@JsonProperty("message_id")
-	public void setMessageId(int messageId) {
+	public void setMessageId(long messageId) {
 		this.messageId = messageId;
 	}
 }

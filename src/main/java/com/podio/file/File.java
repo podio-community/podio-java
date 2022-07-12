@@ -15,7 +15,7 @@ public class File extends CreatedBase {
 	/**
 	 * The id of the file
 	 */
-	private int id;
+	private long id;
 
 	/**
 	 * The name of the file
@@ -69,12 +69,12 @@ public class File extends CreatedBase {
 	private List<File> replaces;
 
 	@JsonProperty("file_id")
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("file_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

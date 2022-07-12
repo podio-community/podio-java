@@ -28,7 +28,7 @@ public class ConversationAPI extends BaseAPI {
 	 *            sender)
 	 * @return The id of the newly created conversation
 	 */
-	public int createConversation(String subject, String text,
+	public long createConversation(String subject, String text,
 			List<Integer> participants) {
 		return createConversation(subject, text, participants, null);
 	}
@@ -48,7 +48,7 @@ public class ConversationAPI extends BaseAPI {
 	 *            The object the conversation should be created on, if any
 	 * @return The id of the newly created conversation
 	 */
-	public int createConversation(String subject, String text,
+	public long createConversation(String subject, String text,
 			List<Integer> participants, Reference reference) {
 		String url = reference != null ?  "/conversation/" + reference.toURLFragment() :"/conversation/";
 			return getResourceFactory().getApiResource(url)
@@ -94,7 +94,7 @@ public class ConversationAPI extends BaseAPI {
 	 *            The text of the reply
 	 * @return The id of the new message
 	 */
-	public int addReply(int conversationId, String text) {
+	public long addReply(int conversationId, String text) {
 		return getResourceFactory()
 				.getApiResource("/conversation/" + conversationId + "/reply")
 				.post(Entity.entity(new MessageCreate(text),

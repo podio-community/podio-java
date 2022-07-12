@@ -155,7 +155,7 @@ public class TaskAPI extends BaseAPI {
 	 *            Disable notifications
 	 * @return The id of the newly created task
 	 */
-	public int createTask(TaskCreate task, boolean silent) {
+	public long createTask(TaskCreate task, boolean silent) {
 		return createTask(task, silent, true);
 	}
 	
@@ -170,7 +170,7 @@ public class TaskAPI extends BaseAPI {
 	 *            Execute hooks for the change
 	 * @return The id of the newly created task
 	 */
-	public int createTask(TaskCreate task, boolean silent, boolean hook) {
+	public long createTask(TaskCreate task, boolean silent, boolean hook) {
 		Map<String, String> queryParams = new HashMap<>();
 		queryParams.put("silent", silent ? "1" : "0");
 		queryParams.put("hook", hook ? "1" : "0");
@@ -192,7 +192,7 @@ public class TaskAPI extends BaseAPI {
 	 *            Disable notifications
 	 * @return The id of the newly created task
 	 */
-	public int createTaskWithReference(TaskCreate task, Reference reference,
+	public long createTaskWithReference(TaskCreate task, Reference reference,
 			boolean silent) {
 		return createTaskWithReference(task, reference, silent, true);
 	}
@@ -210,7 +210,7 @@ public class TaskAPI extends BaseAPI {
 	 *            Execute hooks for the change
 	 * @return The id of the newly created task
 	 */
-	public int createTaskWithReference(TaskCreate task, Reference reference,
+	public long createTaskWithReference(TaskCreate task, Reference reference,
 			boolean silent, boolean hook) {
 		Map<String, String> queryParams = new HashMap<>();
 		queryParams.put("silent", silent ? "1" : "0");

@@ -56,7 +56,7 @@ public class SpaceMemberAdd {
 	/**
 	 * Must be set to the item id if source_key is set
 	 */
-	private int contextRefId;
+	private long contextRefId;
 	
 	/**
 	 * A optional custom string indicating where the user was when he/she invited the user(s)
@@ -169,7 +169,7 @@ public class SpaceMemberAdd {
 	 * @return the contextRefId
 	 */
 	@JsonProperty("context_ref_id")
-	public int getContextRefId() {
+	public long getContextRefId() {
 		return contextRefId;
 	}
 	
@@ -177,7 +177,7 @@ public class SpaceMemberAdd {
 	 * @param contextRefId the contextRefId to set
 	 */
 	@JsonProperty("context_ref_id")
-	public void setContextRefId(int contextRefId) {
+	public void setContextRefId(long contextRefId) {
 		this.contextRefId = contextRefId;
 	}
 	

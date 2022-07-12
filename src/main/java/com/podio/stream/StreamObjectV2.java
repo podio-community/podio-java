@@ -26,7 +26,7 @@ public class StreamObjectV2 extends CreatedBase {
 	/**
 	 * The id of the object
 	 */
-	private int id;
+	private long id;
 
 	/**
 	 * The date and time the object was last updated
@@ -96,11 +96,11 @@ public class StreamObjectV2 extends CreatedBase {
 		this.type = type;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

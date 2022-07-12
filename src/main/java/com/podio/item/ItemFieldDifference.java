@@ -12,7 +12,7 @@ public class ItemFieldDifference {
 	/**
 	 * The id of the field
 	 */
-	private int id;
+	private long id;
 
 	/**
 	 * The type of the field
@@ -34,12 +34,12 @@ public class ItemFieldDifference {
 	 */
 	private List<Map<String, Object>> to;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("field_id")
-	public void setId(int fieldId) {
+	public void setId(long fieldId) {
 		this.id = fieldId;
 	}
 

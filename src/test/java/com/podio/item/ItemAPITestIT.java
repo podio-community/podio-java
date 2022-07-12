@@ -29,7 +29,7 @@ public class ItemAPITestIT {
 
 	@Test
 	public void addItem() {
-		int itemId = getAPI().addItem(
+		long itemId = getAPI().addItem(
 				1,
 				new ItemCreate(null, Arrays.asList(new FieldValuesUpdate(1,
 						"value", "yes")), Collections.<Integer> emptyList(),
@@ -40,7 +40,7 @@ public class ItemAPITestIT {
 
 	@Test
 	public void addItemAsApp() {
-		int itemId = APIFactoryProvider
+		long itemId = APIFactoryProvider
 				.getApp(1)
 				.getAPI(ItemAPI.class)
 				.addItem(

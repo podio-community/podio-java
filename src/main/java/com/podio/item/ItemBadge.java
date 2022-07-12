@@ -16,7 +16,7 @@ public class ItemBadge {
 	/**
 	 * The id of the item
 	 */
-	private int id;
+	private long id;
 
 	/**
 	 * The information on who created the first revision of the item
@@ -70,12 +70,12 @@ public class ItemBadge {
 	private DateTime createdOn;
 
 	@JsonProperty("item_id")
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("item_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

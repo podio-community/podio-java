@@ -43,7 +43,7 @@ public class ItemAPI extends BaseAPI {
 	 *            True if the create should be silten, false otherwise
 	 * @return The id of the newly created item
 	 */
-	public int addItem(int appId, ItemCreate create, boolean silent) {
+	public long addItem(long appId, ItemCreate create, boolean silent) {
 		return getResourceFactory().getApiResource("/item/app/" + appId + "/", Collections.singletonMap("silent", silent ? "1" : "0"))
 				.post(Entity.entity(create, MediaType.APPLICATION_JSON_TYPE), ItemCreateResponse.class).getId();
 	}
@@ -55,7 +55,7 @@ public class ItemAPI extends BaseAPI {
 	 *            The id of the item
 	 * @return The item with given id
 	 */
-	public Item getItem(int itemId) {
+	public Item getItem(long itemId) {
 		return getResourceFactory().getApiResource("/item/" + itemId).get(
 				Item.class);
 	}
@@ -74,7 +74,7 @@ public class ItemAPI extends BaseAPI {
 	 * @param hook
 	 *            True if hooks should be executed for the change, false otherwise
 	 */
-	public void updateItem(int itemId, ItemUpdate update, boolean silent, boolean hook) {
+	public void updateItem(long itemId, ItemUpdate update, boolean silent, boolean hook) {
 		Map<String, String> queryParams = new HashMap<>();
 		queryParams.put("silent", silent ? "1" : "0");
 		queryParams.put("hook", hook ? "1" : "0");
@@ -94,7 +94,7 @@ public class ItemAPI extends BaseAPI {
 	 * @param hook
 	 *            True if hooks should be executed for the change, false otherwise
 	 */
-	public void updateItemValues(int itemId, List<FieldValuesUpdate> values,
+	public void updateItemValues(long itemId, List<FieldValuesUpdate> values,
 			boolean silent, boolean hook) {
 		Map<String, String> queryParams = new HashMap<>();
 		queryParams.put("silent", silent ? "1" : "0");
@@ -117,7 +117,7 @@ public class ItemAPI extends BaseAPI {
 	 * @param hook
 	 *            True if hooks should be executed for the change, false otherwise
 	 */
-	public void updateItemFieldValues(int itemId, String fieldOrExternalId,
+	public void updateItemFieldValues(long itemId, String fieldOrExternalId,
 			List<?> values, boolean silent, boolean hook) {
 		Map<String, String> queryParams = new HashMap<>();
 		queryParams.put("silent", silent ? "1" : "0");
@@ -136,7 +136,7 @@ public class ItemAPI extends BaseAPI {
 	 * @param silent
 	 *            True if the deletion should be silent, false otherwise
 	 */
-	public void deleteItem(int itemId, boolean silent) {
+	public void deleteItem(long itemId, boolean silent) {
 		getResourceFactory().getApiResource("/item/" + itemId, Collections.singletonMap("silent", silent ? "1" : "0"))
 				.delete();
 	}
@@ -150,7 +150,7 @@ public class ItemAPI extends BaseAPI {
 	 *            The id of the field
 	 * @return The values on the field on the item
 	 */
-	public List<Map<String, Object>> getItemFieldValues(int itemId, int fieldId) {
+	public List<Map<String, Object>> getItemFieldValues(long itemId, int fieldId) {
 		return getResourceFactory().getApiResource(
 				"/item/" + itemId + "/value/" + fieldId).get(
 				new GenericType<List<Map<String, Object>>>() {
@@ -165,7 +165,7 @@ public class ItemAPI extends BaseAPI {
 	 *            The id of the item
 	 * @return The values on the item
 	 */
-	public List<FieldValuesView> getItemValues(int itemId) {
+	public List<FieldValuesView> getItemValues(long itemId) {
 		return getResourceFactory().getApiResource(
 				"/item/" + itemId + "/value/").get(
 				new GenericType<List<FieldValuesView>>() {
@@ -211,7 +211,7 @@ public class ItemAPI extends BaseAPI {
 	 *            The id of the item
 	 * @return The references to the given item
 	 */
-	public List<ItemReference> getItemReference(int itemId) {
+	public List<ItemReference> getItemReference(long itemId) {
 		return getResourceFactory().getApiResource(
 				"/item/" + itemId + "/reference/").get(
 				new GenericType<List<ItemReference>>() {
@@ -228,7 +228,7 @@ public class ItemAPI extends BaseAPI {
 	 *            revision
 	 * @return The revision
 	 */
-	public ItemRevision getItemRevision(int itemId, int revisionId) {
+	public ItemRevision getItemRevision(long itemId, int revisionId) {
 		return getResourceFactory().getApiResource(
 				"/item/" + itemId + "/revision/" + revisionId).get(
 				ItemRevision.class);
@@ -245,7 +245,7 @@ public class ItemAPI extends BaseAPI {
 	 *            The to revision
 	 * @return The difference between the two revision
 	 */
-	public List<ItemFieldDifference> getItemRevisionDifference(int itemId,
+	public List<ItemFieldDifference> getItemRevisionDifference(long itemId,
 			int revisionFrom, int revisionTo) {
 		return getResourceFactory().getApiResource(
 				"/item/" + itemId + "/revision/" + revisionFrom + "/"
@@ -261,14 +261,14 @@ public class ItemAPI extends BaseAPI {
 	 *            The id of the item
 	 * @return All the revisions
 	 */
-	public List<ItemRevision> getItemRevisions(int itemId) {
+	public List<ItemRevision> getItemRevisions(long itemId) {
 		return getResourceFactory().getApiResource(
 				"/item/" + itemId + "/revision/").get(
 				new GenericType<List<ItemRevision>>() {
 				});
 	}
 
-	public ItemsResponse filterItems(int appId, ItemFilter filter) {
+	public ItemsResponse filterItems(long appId, ItemFilter filter) {
 		return getResourceFactory().getApiResource("/item/app/" + appId + "/filter/")
 				.post(Entity.entity(filter, MediaType.APPLICATION_JSON_TYPE), ItemsResponse.class);
 	}
@@ -292,7 +292,7 @@ public class ItemAPI extends BaseAPI {
 	 *            The filters to apply
 	 * @return The items matching the filters
 	 */
-	public ItemsResponse getItems(int appId, Integer limit, Integer offset,
+	public ItemsResponse getItems(long appId, Integer limit, Integer offset,
 			SortBy sortBy, Boolean sortDesc, FilterByValue<?>... filters) {
 		Map<String, String> queryParams = new HashMap<>();
 		if (limit != null) {
@@ -325,7 +325,7 @@ public class ItemAPI extends BaseAPI {
 	 *            The external id
 	 * @return The items matching the app and external id
 	 */
-	public ItemsResponse getItemsByExternalId(int appId, String externalId) {
+	public ItemsResponse getItemsByExternalId(long appId, String externalId) {
 		return getItems(appId, null, null, null, null,
 				new FilterByValue<String>(new ExternalIdFilterBy(), externalId));
 	}

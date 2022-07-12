@@ -11,15 +11,15 @@ public class ApplicationFieldCreateResponse implements Serializable {
 	/**
 	 * The id of the created field
 	 */
-	private int id;
+	private long id;
 
 	@JsonProperty("field_id")
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("field_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 }

@@ -4,7 +4,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class FileUploadResult {
 
-	private int fileId;
+	private long fileId;
 
 	@Override
 	public String toString() {
@@ -12,12 +12,12 @@ public class FileUploadResult {
 	}
 
 	@JsonProperty("file_id")
-	public int getFileId() {
+	public long getFileId() {
 		return fileId;
 	}
 
 	@JsonProperty("file_id")
-	public void setFileId(int fileId) {
+	public void setFileId(long fileId) {
 		this.fileId = fileId;
 	}
 }

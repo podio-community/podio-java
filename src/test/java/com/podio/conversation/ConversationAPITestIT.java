@@ -20,7 +20,7 @@ public class ConversationAPITestIT {
 
 	@Test
 	public void createConversation() {
-		int conversationId = getAPI().createConversation("Subject", "Message",
+		long conversationId = getAPI().createConversation("Subject", "Message",
 				Arrays.asList(2, 4));
 
 		Assert.assertTrue(conversationId > 1);
@@ -28,7 +28,7 @@ public class ConversationAPITestIT {
 
 	@Test
 	public void createConversationOnObject() {
-		int conversation_id = getAPI().createConversation("Subject", "Message",
+		long conversation_id = getAPI().createConversation("Subject", "Message",
 				Arrays.asList(2, 4), new Reference(ReferenceType.ITEM, 1));
 
 		Assert.assertTrue(conversation_id > 1);
@@ -60,7 +60,7 @@ public class ConversationAPITestIT {
 
 	@Test
 	public void addReply() {
-		int messageId = getAPI().addReply(1, "My reply");
+		long messageId = getAPI().addReply(1, "My reply");
 
 		Assert.assertTrue(messageId > 1);
 	}

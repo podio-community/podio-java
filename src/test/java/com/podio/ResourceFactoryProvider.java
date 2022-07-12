@@ -34,7 +34,7 @@ public final class ResourceFactoryProvider {
 								"fe8ba3bfd25402a286d4ecb42335387e01bbdcb6d836d1b3eb122737c7b75e7efdc176fafaff5ff51349fdce3a7df73efba0901943307549cade9f835208dcd0"));
 	}
 
-	private static final Map<Integer, ResourceFactory> APP_API_MAP = new HashMap<Integer, ResourceFactory>();
+	private static final Map<Long, ResourceFactory> APP_API_MAP = new HashMap<Long, ResourceFactory>();
 
 	private ResourceFactoryProvider() {
 	}
@@ -53,7 +53,7 @@ public final class ResourceFactoryProvider {
 		return api;
 	}
 
-	public static ResourceFactory getApp(int appId) {
+	public static ResourceFactory getApp(long appId) {
 		ResourceFactory api = APP_API_MAP.get(appId);
 		if (api != null) {
 			return api;

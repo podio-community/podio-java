@@ -7,7 +7,7 @@ public class SpaceMini {
 	/**
 	 * The id of the space
 	 */
-	private int id;
+	private long id;
 
 	/**
 	 * The name of the space
@@ -20,12 +20,12 @@ public class SpaceMini {
 	private String url;
 
 	@JsonProperty("space_id")
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("space_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

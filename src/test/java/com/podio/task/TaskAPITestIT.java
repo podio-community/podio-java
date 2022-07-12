@@ -66,7 +66,7 @@ public class TaskAPITestIT {
 
 	@Test
 	public void createTask() {
-		int taskId = getAPI().createTask(
+		long taskId = getAPI().createTask(
 				new TaskCreate("Test task", null, false, new LocalDate(2010,
 						11, 10), 1), false);
 
@@ -75,7 +75,7 @@ public class TaskAPITestIT {
 
 	@Test
 	public void createTaskWithReference() {
-		int taskId = getAPI().createTaskWithReference(
+		long taskId = getAPI().createTaskWithReference(
 				new TaskCreate("Test task", null, false, new LocalDate(2010,
 						11, 10), 1), new Reference(ReferenceType.ITEM, 1),
 				false);

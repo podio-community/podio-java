@@ -16,14 +16,14 @@ public class MappedItemAPI<T> {
 
 	private final ItemMap<T> map;
 
-	public MappedItemAPI(APIFactory factory, int appId, Class<T> cls) {
+	public MappedItemAPI(APIFactory factory, long appId, Class<T> cls) {
 		super();
 		this.factory = factory;
 		this.application = factory.getAPI(AppAPI.class).getApp(appId);
 		this.map = ItemMap.get(application, cls);
 	}
 
-	public int insert(T object, boolean silent) {
+	public long insert(T object, boolean silent) {
 		return factory.getAPI(ItemAPI.class).addItem(application.getId(),
 				map.getCreate(object), silent);
 	}

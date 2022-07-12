@@ -36,7 +36,7 @@ public class MappedItemAPITestIT {
 		BugMap1 bug = new BugMap1(1, Collections.singleton(HireStatus.YES),
 				Money.of(CurrencyUnit.EUR, new BigDecimal("123.45")),
 				"A mexican in a bar", new BigDecimal("1.2"), 30, "Ignored");
-		int itemId = getMappedAPI(BugMap1.class).insert(bug, true);
+		long itemId = getMappedAPI(BugMap1.class).insert(bug, true);
 		Assert.assertTrue(itemId > 0);
 	}
 }

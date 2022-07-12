@@ -7,7 +7,7 @@ public class ItemMicro {
 	/**
 	 * The id of the item
 	 */
-	private int id;
+	private long id;
 
 	/**
 	 * The title of the item. This is made of up one of the fields below, or by
@@ -16,12 +16,12 @@ public class ItemMicro {
 	private String title;
 
 	@JsonProperty("item_id")
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("item_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

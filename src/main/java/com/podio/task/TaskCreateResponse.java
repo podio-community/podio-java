@@ -4,15 +4,15 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class TaskCreateResponse {
 
-	private int id;
+	private long id;
 
 	@JsonProperty("task_id")
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("task_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 }

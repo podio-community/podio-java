@@ -12,7 +12,7 @@ public class ApplicationCreate implements Serializable  {
 	/**
 	 * The id of the space on which the app is placed
 	 */
-	private int spaceId;
+	private long spaceId;
 
 	/**
 	 * The new configuration of the app
@@ -34,12 +34,12 @@ public class ApplicationCreate implements Serializable  {
 	}
 
 	@JsonProperty("space_id")
-	public int getSpaceId() {
+	public long getSpaceId() {
 		return spaceId;
 	}
 
 	@JsonProperty("space_id")
-	public void setSpaceId(int spaceId) {
+	public void setSpaceId(long spaceId) {
 		this.spaceId = spaceId;
 	}
 

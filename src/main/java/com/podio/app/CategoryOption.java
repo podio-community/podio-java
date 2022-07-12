@@ -6,7 +6,7 @@ public class CategoryOption implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private int id;
+	private long id;
 	
 	private CategoryOptionStatus status;
 	
@@ -18,7 +18,7 @@ public class CategoryOption implements Serializable {
 		super();
 	}
 
-	public CategoryOption(int id, CategoryOptionStatus status, String text,
+	public CategoryOption(long id, CategoryOptionStatus status, String text,
 			String color) {
 		super();
 		this.id = id;
@@ -27,11 +27,11 @@ public class CategoryOption implements Serializable {
 		this.color = color;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

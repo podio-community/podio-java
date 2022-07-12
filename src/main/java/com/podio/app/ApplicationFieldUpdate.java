@@ -11,7 +11,7 @@ public class ApplicationFieldUpdate implements Serializable {
 	/**
 	 * The id of the field
 	 */
-	private int id;
+	private long id;
 
 	/**
 	 * The configuration of the field
@@ -22,7 +22,7 @@ public class ApplicationFieldUpdate implements Serializable {
 		super();
 	}
 
-	public ApplicationFieldUpdate(int id,
+	public ApplicationFieldUpdate(long id,
 			ApplicationFieldConfiguration configuration) {
 		super();
 		this.id = id;
@@ -30,12 +30,12 @@ public class ApplicationFieldUpdate implements Serializable {
 	}
 
 	@JsonProperty("field_id")
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("field_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

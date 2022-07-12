@@ -14,7 +14,7 @@ public class Embed implements Serializable {
 	/**
 	 * The id of the embed
 	 */
-	private int id;
+	private long id;
 
 	/**
 	 * The url for the embed
@@ -57,12 +57,12 @@ public class Embed implements Serializable {
 	 */
 	private List<File> files;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("embed_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	

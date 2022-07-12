@@ -26,7 +26,7 @@ public class HookAPI extends BaseAPI {
 	 *            The details for the new hook
 	 * @return The id of the newly created hook
 	 */
-	public int create(Reference object, HookCreate create) {
+	public long create(Reference object, HookCreate create) {
 		return getResourceFactory()
 				.getApiResource(
 						"/hook/" + object.getType() + "/" + object.getId()
@@ -40,7 +40,7 @@ public class HookAPI extends BaseAPI {
 	 * @param id
 	 *            The id of the hook
 	 */
-	public void delete(int id) {
+	public void delete(long id) {
 		getResourceFactory().getApiResource("/hook/" + id).delete();
 	}
 
@@ -68,7 +68,7 @@ public class HookAPI extends BaseAPI {
 	 * @param id
 	 *            The id of the hook to be verified
 	 */
-	public void requestVerification(int id) {
+	public void requestVerification(long id) {
 		getResourceFactory().getApiResource("/hook/" + id + "/verify/request")
 				.post(Entity.entity(new Empty(), MediaType.APPLICATION_JSON_TYPE));
 	}
@@ -82,7 +82,7 @@ public class HookAPI extends BaseAPI {
 	 * @param code
 	 *            The code received from the call to the endpoint
 	 */
-	public void validateVerification(int id, String code) {
+	public void validateVerification(long id, String code) {
 		getResourceFactory().getApiResource("/hook/" + id + "/verify/validate")
 				.post(Entity.entity(new HookValidate(code), MediaType.APPLICATION_JSON));
 	}

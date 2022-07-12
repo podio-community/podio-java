@@ -11,7 +11,7 @@ public class ProfileBase implements Serializable {
 	/**
 	 * The id of the profile
 	 */
-	private int profileId;
+	private long profileId;
 
 	/**
 	 * The id of the user
@@ -22,7 +22,7 @@ public class ProfileBase implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + profileId;
+		result = prime * result +(int) profileId;
 		return result;
 	}
 
@@ -41,12 +41,12 @@ public class ProfileBase implements Serializable {
 	}
 
 	@JsonProperty("profile_id")
-	public int getProfileId() {
+	public long getProfileId() {
 		return profileId;
 	}
 
 	@JsonProperty("profile_id")
-	public void setProfileId(int profileId) {
+	public void setProfileId(long profileId) {
 		this.profileId = profileId;
 	}
 

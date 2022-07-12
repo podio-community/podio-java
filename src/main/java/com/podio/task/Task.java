@@ -14,7 +14,7 @@ public class Task extends CreatedBase {
 	/**
 	 * The id of the task
 	 */
-	private int id;
+	private long id;
 
 	/**
 	 * The status of the task
@@ -92,12 +92,12 @@ public class Task extends CreatedBase {
 	}
 
 	@JsonProperty("task_id")
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("task_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

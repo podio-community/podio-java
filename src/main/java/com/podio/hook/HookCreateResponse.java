@@ -7,14 +7,14 @@ public class HookCreateResponse {
 	/**
 	 * The id of the hook created
 	 */
-	private int id;
+	private long id;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("hook_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 }

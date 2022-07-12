@@ -7,7 +7,7 @@ public class OrganizationMini {
 	/**
 	 * The id of the org
 	 */
-	private int id;
+	private long id;
 
 	/**
 	 * The name of the org
@@ -31,12 +31,12 @@ public class OrganizationMini {
 	private boolean premium;
 
 	@JsonProperty("org_id")
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("org_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

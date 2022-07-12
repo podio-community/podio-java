@@ -24,7 +24,7 @@ public class StreamObject {
 	/**
 	 * The id of the object
 	 */
-	private int id;
+	private long id;
 
 	/**
 	 * The object itself in short form
@@ -79,11 +79,11 @@ public class StreamObject {
 		this.type = type;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

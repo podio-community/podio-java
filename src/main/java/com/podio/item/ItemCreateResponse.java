@@ -4,14 +4,14 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class ItemCreateResponse {
 
-	private int id;
+	private long id;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("item_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 }

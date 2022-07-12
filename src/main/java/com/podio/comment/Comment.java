@@ -15,7 +15,7 @@ public class Comment extends CreatedBase {
 	/**
 	 * The id of the comment. Can be used to update and delete the comment
 	 */
-	private int id;
+	private long id;
 
 	/**
 	 * The actual comment
@@ -38,12 +38,12 @@ public class Comment extends CreatedBase {
 	private List<File> files;
 
 	@JsonProperty("comment_id")
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("comment_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

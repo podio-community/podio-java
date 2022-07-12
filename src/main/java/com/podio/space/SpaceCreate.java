@@ -4,7 +4,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 public class SpaceCreate extends SpaceUpdate {
 
-	private int orgId;
+	private long orgId;
 
 	public SpaceCreate(String name, boolean postOnNewApp,
 			boolean postOnNewMember, int orgId) {
@@ -13,11 +13,11 @@ public class SpaceCreate extends SpaceUpdate {
 	}
 
 	@JsonProperty("org_id")
-	public int getOrgId() {
+	public long getOrgId() {
 		return orgId;
 	}
 
-	public void setOrgId(int orgId) {
+	public void setOrgId(long orgId) {
 		this.orgId = orgId;
 	}
 }

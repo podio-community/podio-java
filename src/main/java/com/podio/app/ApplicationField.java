@@ -9,7 +9,7 @@ public class ApplicationField extends ApplicationFieldCreate {
 	/**
 	 * The id of the field
 	 */
-	private int id;
+	private long id;
 
 	/**
 	 * The external id of the field
@@ -22,12 +22,12 @@ public class ApplicationField extends ApplicationFieldCreate {
 	private ApplicationFieldStatus status;
 
 	@JsonProperty("field_id")
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
 	@JsonProperty("field_id")
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

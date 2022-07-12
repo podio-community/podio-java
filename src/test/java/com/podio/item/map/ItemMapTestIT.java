@@ -92,7 +92,7 @@ public class ItemMapTestIT {
 		Assert.assertEquals(model.getImportance(), 2.2f, 0);
 	}
 
-	private <T> ItemMap<T> getMap(int appId, Class<? extends Object> cls) {
+	private <T> ItemMap<T> getMap(long appId, Class<? extends Object> cls) {
 		Application application = APIFactoryProvider.getDefault()
 				.getAPI(AppAPI.class).getApp(appId);
 
@@ -100,15 +100,15 @@ public class ItemMapTestIT {
 		return itemMap;
 	}
 
-	private <T> ItemCreate getCreate(int appId, T value) {
+	private <T> ItemCreate getCreate(long appId, T value) {
 		return getMap(appId, value.getClass()).getCreate(value);
 	}
 
-	private <T> ItemUpdate getUpdate(int appId, T value) {
+	private <T> ItemUpdate getUpdate(long appId, T value) {
 		return getMap(appId, value.getClass()).getUpdate(value);
 	}
 
-	private <T> T getView(int appId, int itemId, Class<T> cls) {
+	private <T> T getView(long appId, long itemId, Class<T> cls) {
 		Item item = APIFactoryProvider.getDefault().getAPI(ItemAPI.class)
 				.getItem(itemId);
 

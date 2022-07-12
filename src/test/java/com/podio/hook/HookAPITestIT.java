@@ -18,7 +18,7 @@ public class HookAPITestIT {
 
 	@Test
 	public void create() {
-		int id = getAPI().create(new Reference(ReferenceType.APP, 1),
+		long id = getAPI().create(new Reference(ReferenceType.APP, 1),
 				new HookCreate("http://foobar.com/test", HookType.ITEM_CREATE));
 		Assert.assertTrue(id > 1);
 	}
