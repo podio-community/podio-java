@@ -12,7 +12,7 @@ import com.podio.common.CSVUtil;
 import com.podio.common.ReferenceType;
 import com.podio.serialize.DateTimeUtil;
 
-import javax.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.GenericType;
 
 /**
  * The calendar is used to get the calendar for a user. The calendar includes

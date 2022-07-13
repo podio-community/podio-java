@@ -8,9 +8,9 @@ import com.podio.filter.FilterByValue;
 import com.podio.filter.SortBy;
 import com.podio.item.filter.ItemFilter;
 
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.MediaType;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;

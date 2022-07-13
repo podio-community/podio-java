@@ -1,10 +1,10 @@
 package com.podio;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import com.fasterxml.jackson.jakarta.rs.json.JacksonJsonProvider;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.core.MediaType;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.core.MediaType;
 
 /**
  * Custom jackson provider to accept multiple kinds of data as JSON
@@ -24,11 +24,11 @@ public class CustomJacksonJsonProvider extends JacksonJsonProvider {
 		}
 
 		return mediaType != null
-				&& (mediaType.getType().equalsIgnoreCase("text") && mediaType
+				&& ((mediaType.getType().equalsIgnoreCase("text") && mediaType
 						.getSubtype().equals("javascript"))
 				|| (mediaType.getType().equalsIgnoreCase("application") && mediaType
 						.getSubtype().equals("x-javascript"))
 				|| (mediaType.getType().equalsIgnoreCase("text") && mediaType
-						.getSubtype().equals("plain"));
+						.getSubtype().equals("plain")));
 	}
 }

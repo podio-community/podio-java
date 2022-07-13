@@ -2,10 +2,12 @@ package com.podio;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import com.fasterxml.jackson.jakarta.rs.json.JacksonJsonProvider;
 import com.podio.oauth.OAuthClientCredentials;
 import com.podio.oauth.OAuthUserCredentials;
 import com.podio.serialize.*;
+import jakarta.ws.rs.client.*;
+import jakarta.ws.rs.core.HttpHeaders;
 import org.glassfish.jersey.client.filter.EncodingFilter;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.message.GZipEncoder;
@@ -14,8 +16,6 @@ import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.client.*;
-import javax.ws.rs.core.HttpHeaders;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collections;

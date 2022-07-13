@@ -1,13 +1,13 @@
 package com.podio.item.map.converter;
 
+import org.apache.commons.beanutils.ConvertUtils;
+import org.joda.money.CurrencyUnit;
+import org.joda.money.Money;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.commons.beanutils.ConvertUtils;
-import org.joda.money.CurrencyUnit;
-import org.joda.money.Money;
 
 public class MoneyConverter implements FieldConverter {
 
@@ -27,11 +27,11 @@ public class MoneyConverter implements FieldConverter {
 			Money moneyValue = (Money) value;
 
 			map.put("value", moneyValue.getAmount().toPlainString());
-			map.put("currency", moneyValue.getCurrencyUnit().getCurrencyCode());
+			map.put("currency", moneyValue.getCurrencyUnit().getCode());
 		} else {
 			map.put("value", ((BigDecimal) ConvertUtils.convert(value,
 					BigDecimal.class)).toPlainString());
-			map.put("currency", defaultCurrency.getCurrencyCode());
+			map.put("currency", defaultCurrency.getCode());
 		}
 
 		return map;

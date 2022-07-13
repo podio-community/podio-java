@@ -5,7 +5,7 @@ package com.podio.space;
 
 import java.util.List;
 
-import javax.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.MultivaluedMap;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

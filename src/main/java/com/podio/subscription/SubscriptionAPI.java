@@ -5,8 +5,8 @@ import com.podio.ResourceFactory;
 import com.podio.common.Empty;
 import com.podio.common.Reference;
 
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.MediaType;
 
 /**
  * Subscriptions allows the user to be notified when an object is created,

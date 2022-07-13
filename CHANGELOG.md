@@ -1,3 +1,6 @@
+# 3.0.0 (2022-07-13)
+* Upgraded all dependencies. This introduces some breaking changes, as some package names of third party classes changed (e.g. from `javax.activation.MimeType` to `jakarta.activation.MimeType`).
+
 # 2.0.0 (2022-07-08)
 * Changed all ids type from `int` to `long` as a result of obtaining an item id greater than the int range
 

@@ -1,6 +1,6 @@
 package com.podio.oauth;
 
-import javax.ws.rs.core.MultivaluedMap;
+import jakarta.ws.rs.core.MultivaluedMap;
 
 public class OAuthUsernameCredentials implements OAuthUserCredentials {
 

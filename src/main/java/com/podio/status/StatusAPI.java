@@ -3,8 +3,8 @@ package com.podio.status;
 import com.podio.BaseAPI;
 import com.podio.ResourceFactory;
 
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.MediaType;
 
 /**
  * Status messages are small texts that the users wishes to share with the other
