@@ -1,13 +1,7 @@
 package com.podio.item;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.joda.time.DateTime;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.podio.app.Application;
 import com.podio.comment.Comment;
 import com.podio.common.AuthorizationEntity;
@@ -15,6 +9,11 @@ import com.podio.file.File;
 import com.podio.rating.RatingType;
 import com.podio.rating.RatingTypeKeyDeserializer;
 import com.podio.rating.RatingValuesMap;
+import org.joda.time.DateTime;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 
 public class Item implements Serializable {
 

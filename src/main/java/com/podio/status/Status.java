@@ -1,6 +1,6 @@
 package com.podio.status;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.podio.common.CreatedBase;
 

@@ -1,15 +1,14 @@
 package com.podio.item;
 
-import java.util.List;
-import java.util.Map;
-
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.podio.rating.RatingType;
 import com.podio.rating.RatingTypeKeyDeserializer;
 import com.podio.rating.TypeRating;
 import org.joda.time.DateTime;
+
+import java.util.List;
+import java.util.Map;
 
 public class ItemBadge {
 

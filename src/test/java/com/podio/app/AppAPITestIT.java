@@ -9,7 +9,7 @@ import org.junit.Test;
 import com.podio.APIApplicationException;
 import com.podio.APIFactoryProvider;
 
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response;
 
 public class AppAPITestIT {
 

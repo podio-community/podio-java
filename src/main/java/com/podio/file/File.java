@@ -1,12 +1,10 @@
 package com.podio.file;
 
-import java.util.List;
-
-import javax.activation.MimeType;
-
-import org.codehaus.jackson.annotate.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.podio.common.CreatedBase;
+import jakarta.activation.MimeType;
+
+import java.util.List;
 
 public class File extends CreatedBase {
 

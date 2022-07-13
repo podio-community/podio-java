@@ -2,7 +2,7 @@ package com.podio.app;
 
 import java.io.Serializable;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ApplicationInstall implements Serializable {
 

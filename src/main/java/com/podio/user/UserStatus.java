@@ -2,7 +2,7 @@ package com.podio.user;
 
 import java.util.Map;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.podio.contact.Profile;
 

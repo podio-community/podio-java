@@ -2,7 +2,7 @@ package com.podio.comment;
 
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import com.podio.common.CreatedBase;
 import com.podio.contact.ProfileMini;

@@ -1,10 +1,10 @@
 package com.podio;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.core.MediaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.jakarta.rs.json.JacksonJsonProvider;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.core.MediaType;
 
-import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
-import org.codehaus.jackson.map.ObjectMapper;
 
 /**
  * Custom jackson provider to accept multiple kinds of data as JSON
@@ -18,17 +18,17 @@ public class CustomJacksonJsonProvider extends JacksonJsonProvider {
 	}
 
 	@Override
-	protected boolean isJsonType(MediaType mediaType) {
-		if (super.isJsonType(mediaType)) {
+	protected boolean  hasMatchingMediaType(MediaType mediaType) {
+		if (super.hasMatchingMediaType(mediaType)) {
 			return true;
 		}
 
 		return mediaType != null
-				&& (mediaType.getType().equalsIgnoreCase("text") && mediaType
+				&& ((mediaType.getType().equalsIgnoreCase("text") && mediaType
 						.getSubtype().equals("javascript"))
 				|| (mediaType.getType().equalsIgnoreCase("application") && mediaType
 						.getSubtype().equals("x-javascript"))
 				|| (mediaType.getType().equalsIgnoreCase("text") && mediaType
-						.getSubtype().equals("plain"));
+						.getSubtype().equals("plain")));
 	}
 }

@@ -1,6 +1,6 @@
 package com.podio.item;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ItemCreateResponse {
 

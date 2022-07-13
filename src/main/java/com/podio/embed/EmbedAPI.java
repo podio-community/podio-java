@@ -3,8 +3,8 @@ package com.podio.embed;
 import com.podio.BaseAPI;
 import com.podio.ResourceFactory;
 
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.MediaType;
 
 /**
  * Embeds are links shared by users in statuses, conversations and comments. One

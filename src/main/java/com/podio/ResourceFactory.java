@@ -1,16 +1,13 @@
 package com.podio;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.jakarta.rs.json.JacksonJsonProvider;
 import com.podio.oauth.OAuthClientCredentials;
 import com.podio.oauth.OAuthUserCredentials;
 import com.podio.serialize.*;
-import org.codehaus.jackson.jaxrs.JacksonJsonProvider;
-import org.codehaus.jackson.map.DeserializationConfig.Feature;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializationConfig;
-import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
-import org.codehaus.jackson.map.deser.CustomDeserializerFactory;
-import org.codehaus.jackson.map.deser.StdDeserializerProvider;
-import org.codehaus.jackson.map.ser.CustomSerializerFactory;
+import jakarta.ws.rs.client.*;
+import jakarta.ws.rs.core.HttpHeaders;
 import org.glassfish.jersey.client.filter.EncodingFilter;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.message.GZipEncoder;
@@ -19,8 +16,6 @@ import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.client.*;
-import javax.ws.rs.core.HttpHeaders;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collections;
@@ -28,6 +23,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
+import static com.fasterxml.jackson.databind.SerializationFeature.FAIL_ON_EMPTY_BEANS;
 
 /**
  * This is the main low level entry point to access the Podio API. Construct
@@ -96,23 +95,22 @@ public final class ResourceFactory {
 
     public static JacksonJsonProvider getJsonProvider() {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.disable(Feature.FAIL_ON_UNKNOWN_PROPERTIES);
-        mapper.disable(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS);
-        mapper.setSerializationInclusion(Inclusion.NON_NULL);
+        mapper.disable(FAIL_ON_UNKNOWN_PROPERTIES);
+        mapper.disable(FAIL_ON_EMPTY_BEANS);
+        mapper.setSerializationInclusion(NON_NULL);
 
-        CustomSerializerFactory serializerFactory = new CustomSerializerFactory();
-        serializerFactory.addSpecificMapping(DateTime.class, new DateTimeSerializer());
-        serializerFactory.addSpecificMapping(LocalDate.class, new LocalDateSerializer());
-        serializerFactory.addGenericMapping(TimeZone.class, new TimeZoneSerializer());
-        serializerFactory.addSpecificMapping(Locale.class, new LocaleSerializer());
-        mapper.setSerializerFactory(serializerFactory);
+        SimpleModule module = new SimpleModule();
+        module.addSerializer(DateTime.class, new DateTimeSerializer());
+        module.addSerializer(LocalDate.class, new LocalDateSerializer());
+        module.addSerializer(TimeZone.class, new TimeZoneSerializer());
+        module.addSerializer(Locale.class, new LocaleSerializer());
 
-        CustomDeserializerFactory deserializerFactory = new CustomDeserializerFactory();
-        deserializerFactory.addSpecificMapping(DateTime.class, new DateTimeDeserializer());
-        deserializerFactory.addSpecificMapping(LocalDate.class, new LocalDateDeserializer());
-        deserializerFactory.addSpecificMapping(TimeZone.class, new TimeZoneDeserializer());
-        deserializerFactory.addSpecificMapping(Locale.class, new LocaleDeserializer());
-        mapper.setDeserializerProvider(new StdDeserializerProvider(deserializerFactory));
+        module.addDeserializer(DateTime.class, new DateTimeDeserializer());
+        module.addDeserializer(LocalDate.class, new LocalDateDeserializer());
+        module.addDeserializer(TimeZone.class, new TimeZoneDeserializer());
+        module.addDeserializer(Locale.class, new LocaleDeserializer());
+
+        mapper.registerModule(module);
 
         return new CustomJacksonJsonProvider(mapper);
     }

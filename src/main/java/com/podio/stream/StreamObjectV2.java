@@ -3,7 +3,7 @@ package com.podio.stream;
 import java.util.HashMap;
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
 
 import com.podio.app.Application;

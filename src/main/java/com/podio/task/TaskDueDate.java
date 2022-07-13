@@ -1,6 +1,6 @@
 package com.podio.task;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.LocalDate;
 
 public class TaskDueDate {

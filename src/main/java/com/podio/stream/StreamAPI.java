@@ -6,7 +6,7 @@ import com.podio.common.Reference;
 import com.podio.serialize.DateTimeUtil;
 import org.joda.time.DateTime;
 
-import javax.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.GenericType;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
