@@ -6,7 +6,7 @@
     <packaging>jar</packaging>
 
     <name>Podio API Client</name>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>3.0.0</version>
     <description>Community maintained Java wrapper for the Podio API</description>
     <url>https://github.com/podio-community/podio-java</url>
 
@@ -14,7 +14,7 @@
         <connection>scm:git:git://github.com:podio-community/podio-java.git</connection>
         <developerConnection>scm:git:git@github.com:podio-community/podio-java.git</developerConnection>
         <url>http://github.com:podio-community/podio-java.git</url>
-        <tag>HEAD</tag>
+        <tag>podio-api-client-3.0.0</tag>
     </scm>
     <build>
         <plugins>
